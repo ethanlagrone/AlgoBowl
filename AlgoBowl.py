@@ -25,6 +25,8 @@ W= int(Line1)
 Line2 = input().split(" ")
 NumRows = Line2[0]
 NumCols = Line2[1]
+NumRows = int(NumRows)
+NumCols = int(NumCols)
 
 Maze = []
 
