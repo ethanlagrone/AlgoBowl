@@ -15,6 +15,13 @@ TODO:
 import networkx as nx
 
 def validate(graph):
-    
-    return 0
+    startNode = ('start',-1,-1,0)
+    T = nx.bfs_tree(graph, startNode)
+    total = 0
+
+    for node in T.nodes():
+        thing,i,j,value = node
+        total+=value
+
+    return total
 

@@ -62,6 +62,9 @@ def test():
 
     print("\nEdges:\n")
     print(G.edges()) """
+    total = Validater.validate(G)
+    print(total)
+
 
 test()
 #standard()
