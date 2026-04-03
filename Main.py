@@ -28,6 +28,7 @@ def standard():
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
 
     #Craft our solution
+    #startNode = ('start',-1,-1)
     ourSolution = Enclose.encloseHorse(graph)
 
     #check that solution is valid
