@@ -1,18 +1,18 @@
-#Have this file parse input and return the value
-
+#Have this file parse input
+#last thing to do is to check if the horse can get out on intial map(it needs to be able to)
 
 #Constants
 mazeTiles = {'.','H','#','W','a','b','c','p'}
-LIMIT = 10**4
+SIZE_LIMIT = 10**4
 
 
 
 
-#Num of walls
+#Num of walls, First line of input
 W = int(input())
 
 
-#NumRows and NumCols
+#NumRows and NumCols, Second line of input
 Line2 = input().split(" ")
 NumRows, NumCols = Line2
 NumRows = int(NumRows)
@@ -21,7 +21,7 @@ NumCols = int(NumCols)
 if(NumRows <= 3):
     print("Too few rows")
     exit(1)
-if(NumCols*NumRows > LIMIT):
+if(NumCols*NumRows > SIZE_LIMIT):
     print("Too many rows and columns")
     exit(1)
 
