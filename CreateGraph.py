@@ -2,9 +2,18 @@ import networkx as nx
 
 """
 TODO:
-FIGURE OUT HOW TO ADD WEIGHTS
 MAKE IT DIRECTED
 """
+
+def getValue(c):
+    if c == 'a':
+        return 11
+    elif c == 'b':
+        return -4
+    elif c == 'c':
+        return 4
+    else:
+        return 1
 
 def createGraph(wallCount, maze, portalPairCoords):
 
@@ -12,8 +21,8 @@ def createGraph(wallCount, maze, portalPairCoords):
     connectable = ['.','H','a','b','c','p']
 
 
-    exitNode = ("exit", -1, -1)
-    startNode = ('start',-1,-1)
+    exitNode = ("exit", -1, -1, 0)
+    startNode = ("start", -1, -1, 0)
 
 
     G = nx.Graph()
@@ -22,7 +31,8 @@ def createGraph(wallCount, maze, portalPairCoords):
     #create all nodes format: (element, i coordinate, j coordinate)
     for i in range(len(maze)):
         for j in range(len(maze[i])):
-            node = (maze[i][j], i, j)
+            value = getValue(maze[i][j])
+            node = (maze[i][j], i, j, value)
             if node not in G:
                 G.add_node(node)
 
@@ -33,7 +43,8 @@ def createGraph(wallCount, maze, portalPairCoords):
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             mainElement = maze[i][j]
-            mainNode = (mainElement,i,j)
+            value = getValue(mainElement)
+            mainNode = (mainElement,i,j,value)
                 
             if(mainElement not in connectable):
                 continue
@@ -43,7 +54,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 for pair in portalPairCoords:
                     portal1, portal2 = pair
                     i, j = portal2
-                    portalNode = ('p',i,j)
+                    portalNode = ('p',i,j,1)
                     G.add_edge(mainNode,portalNode)
 
             #make start node connected to horse
@@ -56,7 +67,8 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i-1][j]
                 if(current not in connectable):
                     continue
-                currentNode = (current, i-1,j)
+                value = getValue(current)
+                currentNode = (current, i-1,j, value)
                 G.add_edge(mainNode, currentNode)
 
             #south edge
@@ -64,7 +76,8 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i+1][j]
                 if(current not in connectable):
                     continue
-                currentNode = (current, i+1, j)
+                value = getValue(current)
+                currentNode = (current, i+1,j, value)
                 G.add_edge(mainNode, currentNode)
 
             #east edge
@@ -72,7 +85,8 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i][j+1]
                 if(current not in connectable):
                     continue
-                currentNode = (current, i, j+1)
+                value = getValue(current)
+                currentNode = (current, i,j+1, value)
                 G.add_edge(mainNode, currentNode)
             
             #west edge
@@ -80,7 +94,8 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i][j-1]
                 if(current not in connectable):
                     continue
-                currentNode = (current, i, j-1)
+                value = getValue(current)
+                currentNode = (current, i,j-1, value)
                 G.add_edge(mainNode, currentNode)
 
             #exits
