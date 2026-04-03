@@ -1,0 +1,20 @@
+5
+10 10
+.HaWc.Hb#c
+p.c##b.a.W
+.HHHWppHcp
+WWbH#..cpa
+pHHc#pp##H
+.abp#.H.ab
+H.bapc.cHa
+baHcH#pacp
+cH.#.bbp#a
+.a...abp#.
+7
+7 9 4 6
+4 0 5 3
+6 4 7 6
+3 8 2 9
+8 7 2 5
+1 0 4 5
+2 6 9 7

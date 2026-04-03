@@ -6,8 +6,6 @@ mazeTiles = {'.','H','#','W','a','b','c','p'}
 SIZE_LIMIT = 10**4
 
 
-
-
 #Num of walls, First line of input
 W = int(input())
 
