@@ -42,7 +42,7 @@ def standard():
 
 
 
-#THIS WILL GO START TO FINISH, VALIDATING AN OUTPUT, CREATING A SOLUTION, VALIDATING IT, AND OUTPUTTING THE RESULT
+#DO WHAT YOU NEED HERE
 def test():
     #take in input
     inputValidity = InputParser.inputParser()

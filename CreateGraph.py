@@ -27,7 +27,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 G.add_node(node)
 
 
-
+    #Create all edges between nodes including between portals
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             mainElement = maze[i][j]
