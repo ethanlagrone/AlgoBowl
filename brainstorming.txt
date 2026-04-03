@@ -1,4 +1,5 @@
 --- IDEA DUMP ---
+Alt+Z for word wrap
 
 basic idea is some sort of recursive solution where we check the outside ring of the board and count how many grass spaces/ways out there are, then work inward if that number is greater than the number of walls we have.
 
