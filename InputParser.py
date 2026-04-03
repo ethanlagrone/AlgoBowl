@@ -18,43 +18,53 @@ def inputParser():
 
     if(NumRows <= 3):
         print("Too few rows")
-        exit(1)
+        return "Invalid"
     if(NumCols*NumRows > SIZE_LIMIT):
         print("Too many rows and columns")
-        exit(1)
+        return "Invalid"
 
 
     Maze = []
     PortalCoordinates = []
     WallCount = 0
     PortalCount = 0
+    HorseCount = 0
 
     #Actual maze input
     for i in range(NumRows):
         Line = list(input())
         if(len(Line) != NumCols):
             print("Incorrect number of columns")
-            exit(1)
+            return "Invalid"
         for j in range(NumCols):
             char = Line[j]
             #check for chars to be usable
             if(char not in mazeTiles):
                 print("Bad input")
-                exit(1)  
+                return "Invalid"  
             #Count walls to ensure there are not too many
             if(char == 'W'):
                 WallCount += 1
                 if(WallCount > W):
                     print("Too many walls in input")
-                    exit(1)
+                    return "Invalid"
             #Count portals
             if(char == 'p'):
                 PortalCount += 1
                 PortalCoordinates.append((i,j))
+            #Count horses
+            if(char == 'H'):
+                HorseCount += 1
+                if(HorseCount > 1):
+                    print("too many horses")
+                    return "Invalid"
+            
         Maze.append(Line)
 
 
-
+    if(HorseCount == 0):
+        print("No horse")
+        return "Invalid"
     #Number of portal pairs
     Line4 = input()
     PP = int(Line4)
@@ -62,7 +72,7 @@ def inputParser():
     #Check portal count
     if(PortalCount != (2*PP)):
         print("Protal error")
-        exit(1)
+        return "Invalid"
 
     #Connecting portals
     for i in range(PP):
@@ -74,6 +84,6 @@ def inputParser():
         #Ensure given portal coordinates match the graph
         if(portal1 not in PortalCoordinates or portal2 not in PortalCoordinates):
             print("Incorrect portal coords")
-            exit(1)
+            return "Invalid"
 
     return "Valid"
