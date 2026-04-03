@@ -59,7 +59,7 @@ def createGraph(wallCount, maze, portalPairCoords):
 
             #make start node connected to horse
             if(mainElement == 'H'):
-                G.add_edge(mainNode,startNode)
+                G.add_edge(mainNode, startNode)
 
 
             #north edge

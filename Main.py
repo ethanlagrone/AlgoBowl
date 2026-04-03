@@ -57,11 +57,11 @@ def test():
         
 
     G = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
-    """print("\nNodes:\n") 
+    print("\nNodes:\n") 
     print(G.nodes())
 
     print("\nEdges:\n")
-    print(G.edges()) """
+    print(G.edges()) 
     total = Validater.validate(G)
     print(total)
 

@@ -18,7 +18,7 @@ def validate(graph):
     startNode = ('start',-1,-1,0)
     T = nx.bfs_tree(graph, startNode)
     total = 0
-
+    print(T.nodes())
     for node in T.nodes():
         thing,i,j,value = node
         total+=value
