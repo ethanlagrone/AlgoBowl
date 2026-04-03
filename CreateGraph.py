@@ -16,6 +16,11 @@ def createGraph(wallCount, maze, portalPairCoords):
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
 
+    
+    exitNode = ("exit", -1, -1)
+    startNode = ('start',-1,-1)
+
+
     G = nx.Graph()
 
 
@@ -26,6 +31,8 @@ def createGraph(wallCount, maze, portalPairCoords):
             if node not in G:
                 G.add_node(node)
 
+    G.add_node(exitNode)
+    G.add_node(startNode)
 
     #Create all edges between nodes including between portals
     for i in range(len(maze)):
@@ -46,8 +53,6 @@ def createGraph(wallCount, maze, portalPairCoords):
 
             #make start node connected to horse
             if(mainElement == 'H'):
-                startNode = ('start',-1,-1)
-                G.add_node(startNode)
                 G.add_edge(mainNode,startNode)
 
 
@@ -83,5 +88,8 @@ def createGraph(wallCount, maze, portalPairCoords):
                 currentNode = (current, i, j-1)
                 G.add_edge(mainNode, currentNode)
 
+            #exits
+            if(i == 0 or i == len(maze[i]) or j == 0 or j ==len(maze[i])):
+                G.add_edge(mainNode, exitNode)
 
     return G
