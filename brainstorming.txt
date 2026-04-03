@@ -5,3 +5,5 @@ basic idea is some sort of recursive solution where we check the outside ring of
 there is probably some way to make a purely recursive solution work with bees/apples/cherries, but it almost certainly will stop working when portals get involved.
 
 we can probably combine this idea with some sort of graph representation in order to account for that.
+
+for input, i (morgan) like the idea of a kind of counterintuitive way to think about the game. basically have a really open graph where you're essentially enclosing the horse entirely with your own walls. for example, in an empty map with 16 walls, you can give the horse anywhere between 9 and 21 squares of space. incorporating a ton of bees/apples/cherries into the area i feel would make the balancing act pretty hard to deal with an leave you with so many valid solutions that some algorithms may get tripped up by the breadth of choices. this can be scaled up quite far.
