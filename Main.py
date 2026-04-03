@@ -33,6 +33,7 @@ if(NumCols*NumRows > LIMIT):
 
 
 Maze = []
+PortalCoordinates = []
 WallCount = 0
 PortalCount = 0
 
@@ -54,6 +55,7 @@ for i in range(NumRows):
         #Count portals
         if(char == 'p'):
             PortalCount += 1
+            PortalCoordinates.append((i,j))
     Maze.append(Line)
 
 
@@ -68,9 +70,11 @@ if(PortalCount != (2*PP)):
 #Connecting portals
 for i in range(PP):
     Line5 = input().split(" ")
-    Portal1Row = Line5[0]
-    Portal1Col = Line5[1]
-    Portal2Row = Line5[2]
-    Portal2Col = Line5[3]
+    P1Row, P1Col, P2Row, P2Col = Line5
+    portal1 = (int(P1Row), int(P1Col))
+    portal2 = (int(P2Row), int(P2Col))
+    if(portal1 not in PortalCoordinates or portal2 not in PortalCoordinates):
+        print("Incorrect portal coords")
+        exit(1)
 
-print("Done")
+print("Valid")

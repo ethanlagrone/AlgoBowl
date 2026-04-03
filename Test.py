@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-input_folder = "Inputs"  # change to your folder path
+input_folder = "Inputs"
 
 for filename in os.listdir(input_folder):
     filepath = os.path.join(input_folder, filename)
