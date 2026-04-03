@@ -1,9 +1,5 @@
 import networkx as nx
 
-"""
-TODO:
-MAKE IT DIRECTED
-"""
 
 def getValue(c):
     if c == 'a':
