@@ -22,14 +22,15 @@ def createGraph(wallCount, maze, portalPairCoords):
     #create all nodes format: (element, i coordinate, j coordinate)
     for i in range(len(maze)):
         for j in range(len(maze[i])):
-            G.add_node(maze[i][j],i,j)
+            node = (maze[i][j], i, j)
+            G.add_node(node)
 
 
 
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             mainElement = maze[i][j]
-            mainNode = ((mainElement, i, j))
+            mainNode = (mainElement,i,j)
 
             if(mainElement not in connectable):
                 continue
@@ -39,7 +40,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i-1][j]
                 if(current not in connectable):
                     continue
-                currentNode = ((current, i-1, j))
+                currentNode = (current, i-1,j)
                 G.add_edge(mainNode, currentNode)
 
             #south edge
@@ -47,7 +48,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i+1][j]
                 if(current not in connectable):
                     continue
-                currentNode = ((current, i+1, j))
+                currentNode = (current, i+1, j)
                 G.add_edge(mainNode, currentNode)
 
             #east edge
@@ -55,7 +56,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i][j+1]
                 if(current not in connectable):
                     continue
-                currentNode = ((current, i, j+1))
+                currentNode = (current, i, j+1)
                 G.add_edge(mainNode, currentNode)
             
             #west edge
@@ -63,7 +64,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 current = maze[i][j-1]
                 if(current not in connectable):
                     continue
-                currentNode = ((current, i, j-1))
+                currentNode = (current, i, j-1)
                 G.add_edge(mainNode, currentNode)
 
 

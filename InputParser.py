@@ -82,7 +82,7 @@ def inputParser():
         portal1 = (int(P1Row), int(P1Col))
         portal2 = (int(P2Row), int(P2Col))
 
-        pairs.append(portal1,portal2)
+        pairs.append((portal1,portal2))
 
         #Ensure given portal coordinates match the graph
         if(portal1 not in PortalCoordinates or portal2 not in PortalCoordinates):

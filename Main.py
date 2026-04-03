@@ -42,6 +42,21 @@ def standard():
 
 
 
+#THIS WILL GO START TO FINISH, VALIDATING AN OUTPUT, CREATING A SOLUTION, VALIDATING IT, AND OUTPUTTING THE RESULT
+def test():
+    #take in input
+    inputValidity = InputParser.inputParser()
 
+    #check for validity
+    if(inputValidity == "Invalid"):
+        print("Invalid input")
+        exit(1)
+    else:
+        WallCount, Maze, PortalPairCoords = inputValidity
 
-standard()
+    #create graph from input
+    graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
+    print(graph)
+
+test()
+#standard()
