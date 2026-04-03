@@ -32,9 +32,18 @@ def createGraph(wallCount, maze, portalPairCoords):
         for j in range(len(maze[i])):
             mainElement = maze[i][j]
             mainNode = (mainElement,i,j)
-
+                
             if(mainElement not in connectable):
                 continue
+            
+            #connect portals
+            if(mainElement == 'p'):
+                for pair in portalPairCoords:
+                    portal1, portal2 = pair
+                    i, j = portal2
+                    portalNode = ('p',i,j)
+                    G.add_edge(mainNode,portalNode)
+
 
             #north edge
             if(i != 0):

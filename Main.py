@@ -55,8 +55,12 @@ def test():
         WallCount, Maze, PortalPairCoords = inputValidity
         
 
-    graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
-    print(graph)
+    G = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
+    """print("\nNodes:\n") 
+    print(G.nodes())
+
+    print("\nEdges:\n")
+    print(G.edges()) """
 
 test()
 #standard()
