@@ -53,8 +53,8 @@ def test():
         exit(1)
     else:
         WallCount, Maze, PortalPairCoords = inputValidity
+        
 
-    #create graph from input
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
     print(graph)
 

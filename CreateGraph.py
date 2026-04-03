@@ -16,14 +16,15 @@ def createGraph(wallCount, maze, portalPairCoords):
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
 
-    G = nx.Graph
+    G = nx.Graph()
 
 
     #create all nodes format: (element, i coordinate, j coordinate)
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             node = (maze[i][j], i, j)
-            G.add_node(node)
+            if node not in G:
+                G.add_node(node)
 
 
 
@@ -44,7 +45,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 G.add_edge(mainNode, currentNode)
 
             #south edge
-            if(i != len(maze)):
+            if(i+1 != len(maze)):
                 current = maze[i+1][j]
                 if(current not in connectable):
                     continue
@@ -52,7 +53,7 @@ def createGraph(wallCount, maze, portalPairCoords):
                 G.add_edge(mainNode, currentNode)
 
             #east edge
-            if(j != len(maze[i])):
+            if(j+1 != len(maze[i])):
                 current = maze[i][j+1]
                 if(current not in connectable):
                     continue
