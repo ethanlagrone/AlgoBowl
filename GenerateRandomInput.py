@@ -71,5 +71,3 @@ def GenerateRandom():
             i,j = portal2
             file.write("\n")
             file.write(str(a) + " " + str(b) + " " + str(i) + " " + str(j))
-
-GenerateRandom()
