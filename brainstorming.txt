@@ -1,0 +1,7 @@
+--- IDEA DUMP ---
+
+basic idea is some sort of recursive solution where we check the outside ring of the board and count how many grass spaces/ways out there are, then work inward if that number is greater than the number of walls we have.
+
+there is probably some way to make a purely recursive solution work with bees/apples/cherries, but it almost certainly will stop working when portals get involved.
+
+we can probably combine this idea with some sort of graph representation in order to account for that.
