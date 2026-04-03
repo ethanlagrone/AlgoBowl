@@ -27,6 +27,12 @@ def standard():
     #create graph from input
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
 
+    #check that input is valid(horse needs to be able to reach the outside)
+    validation = Validater.validate(ourSolution)
+    if(validation != "Invalid"):
+        print("Horse already trapped")
+        exit(1)
+
     #Craft our solution
     #startNode = ('start',-1,-1)
     ourSolution = Enclose.encloseHorse(graph)
@@ -35,7 +41,7 @@ def standard():
     validation = Validater.validate(ourSolution)
 
     #print score and our graph
-    if(validation == 0):
+    if(validation == "Invalid"):
         print("Incorrect or invalid solution")
     else:
         print(validation)
@@ -57,13 +63,11 @@ def test():
         
 
     G = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
-    """print("\nNodes:\n") 
-    print(G.nodes())
-
-    print("\nEdges:\n")
-    print(G.edges())""" 
     total = Validater.validate(G)
-    print(total)
+    if(total == -1):
+        print("Valid Input")
+    else:
+        print("Invalid input\nTotal = " + str(total))
 
 
 test()
