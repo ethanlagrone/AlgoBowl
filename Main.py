@@ -1,19 +1,13 @@
-"""• Empty grass tiles, the grass tile with the horse, and grass tiles with portals all score +1 point
-• A grass tile with an apple scores +11 points (+1 for the grass tile, and +10 for the apple)
-• A grass tile with bees scores −4 points (+1 for the grass tile, and −5 for the bees)
-• A grass tile with cherries scores +4 points (+1 for the grass tile, and +3 for the cherries)
-
-"""
+#Have this file parse input and return the value
 
 
-#actually build walls
-def horse():
-    return 0
-
-
-
+#Constants
 mazeTiles = {'.','H','#','W','a','b','c','p'}
 LIMIT = 10**4
+
+
+
+
 #Num of walls
 W = int(input())
 
@@ -67,15 +61,19 @@ for i in range(NumRows):
 Line4 = input()
 PP = int(Line4)
 
+#Check portal count
 if(PortalCount != (2*PP)):
     print("Protal error")
     exit(1)
+
 #Connecting portals
 for i in range(PP):
     Line5 = input().split(" ")
     P1Row, P1Col, P2Row, P2Col = Line5
     portal1 = (int(P1Row), int(P1Col))
     portal2 = (int(P2Row), int(P2Col))
+
+    #Ensure given portal coordinates match the graph
     if(portal1 not in PortalCoordinates or portal2 not in PortalCoordinates):
         print("Incorrect portal coords")
         exit(1)
