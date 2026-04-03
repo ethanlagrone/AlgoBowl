@@ -71,7 +71,7 @@ def inputParser():
 
     #Check portal count
     if(PortalCount != (2*PP)):
-        print("Protal error")
+        print("Portal error")
         return "Invalid"
 
     #Connecting portals
