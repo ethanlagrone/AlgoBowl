@@ -41,19 +41,7 @@ def standard():
         print(ourSolution)
 
 
-#DO WHATEVER YOU NEED TO IN THIS ONE
-def test():
-    #take in input
-    inputValidity = InputParser.inputParser()
-
-    #check for validity
-    if(inputValidity == "Invalid"):
-        print("Invalid input")
-        exit(1)
-    else:
-        WallCount, Maze, PortalPairCoords = inputValidity
 
 
 
-test()
-#standard()
+standard()
