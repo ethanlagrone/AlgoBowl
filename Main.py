@@ -11,28 +11,49 @@ def horse():
     return 0
 
 
-#BFS to check if the horse can get out
-def BFS():
-    return 0
 
-
+mazeTiles = {'.','H','#','W','a','b','c','p'}
+LIMIT = 10**4
 #Num of walls
-Line1 = input()
-W= int(Line1)
+W = int(input())
 
 
 #NumRows and NumCols
 Line2 = input().split(" ")
-NumRows = Line2[0]
-NumCols = Line2[1]
+NumRows, NumCols = Line2
 NumRows = int(NumRows)
 NumCols = int(NumCols)
 
+if(NumRows <= 3):
+    print("Too few rows")
+    exit(1)
+if(NumCols*NumRows > LIMIT):
+    print("Too many rows or columns")
+    exit(1)
+
+
 Maze = []
+WallCount = 0
+PortalCount = 0
 
 #Actual maze input
 for i in range(NumRows):
-    Line = input().split()
+    Line = list(input())
+    for j in range(NumCols):
+        char = Line[j]
+        #check for chars to be usable
+        if(char not in mazeTiles):
+            print("Bad input")
+            exit(1)  
+        #Count walls to ensure there are not too many
+        if(char == 'W'):
+            WallCount += 1
+            if(WallCount > W):
+                print("Too many walls in input")
+                exit(1)
+        #Count portals
+        if(char == 'p'):
+            PortalCount += 1
     Maze.append(Line)
 
 
@@ -41,6 +62,9 @@ for i in range(NumRows):
 Line4 = input()
 PP = int(Line4)
 
+if(PortalCount != (2*PP)):
+    print("Protal error")
+    exit(1)
 #Connecting portals
 for i in range(PP):
     Line5 = input().split(" ")
@@ -49,3 +73,4 @@ for i in range(PP):
     Portal2Row = Line5[2]
     Portal2Col = Line5[3]
 
+print("Done")
