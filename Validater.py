@@ -16,10 +16,10 @@ import networkx as nx
 
 def validate(graph):
     startNode = ('start',-1,-1,0)
-    T = nx.bfs_tree(graph, startNode)
+    reachable = nx.node_connected_component(graph, startNode)
     total = 0
-    print(T.nodes())
-    for node in T.nodes():
+    print(reachable)
+    for node in reachable:
         thing,i,j,value = node
         total+=value
 

@@ -53,8 +53,8 @@ def createGraph(wallCount, maze, portalPairCoords):
             if(mainElement == 'p'):
                 for pair in portalPairCoords:
                     portal1, portal2 = pair
-                    i, j = portal2
-                    portalNode = ('p',i,j,1)
+                    x, y = portal2
+                    portalNode = ('p',x,y,1)
                     G.add_edge(mainNode,portalNode)
 
             #make start node connected to horse
@@ -65,41 +65,37 @@ def createGraph(wallCount, maze, portalPairCoords):
             #north edge
             if(i != 0):
                 current = maze[i-1][j]
-                if(current not in connectable):
-                    continue
-                value = getValue(current)
-                currentNode = (current, i-1,j, value)
-                G.add_edge(mainNode, currentNode)
+                if(current in connectable):
+                    value = getValue(current)
+                    currentNode = (current, i-1,j, value)
+                    G.add_edge(mainNode, currentNode)
 
             #south edge
             if(i+1 != len(maze)):
                 current = maze[i+1][j]
-                if(current not in connectable):
-                    continue
-                value = getValue(current)
-                currentNode = (current, i+1,j, value)
-                G.add_edge(mainNode, currentNode)
+                if(current in connectable):
+                    value = getValue(current)
+                    currentNode = (current, i+1,j, value)
+                    G.add_edge(mainNode, currentNode)
 
             #east edge
             if(j+1 != len(maze[i])):
                 current = maze[i][j+1]
-                if(current not in connectable):
-                    continue
-                value = getValue(current)
-                currentNode = (current, i,j+1, value)
-                G.add_edge(mainNode, currentNode)
+                if(current in connectable):
+                    value = getValue(current)
+                    currentNode = (current, i,j+1, value)
+                    G.add_edge(mainNode, currentNode)
             
             #west edge
             if(j != 0):
                 current = maze[i][j-1]
-                if(current not in connectable):
-                    continue
-                value = getValue(current)
-                currentNode = (current, i,j-1, value)
-                G.add_edge(mainNode, currentNode)
+                if(current in connectable):
+                    value = getValue(current)
+                    currentNode = (current, i,j-1, value)
+                    G.add_edge(mainNode, currentNode)
 
             #exits
-            if(i == 0 or i == len(maze[i]) or j == 0 or j ==len(maze[i])):
+            if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
                 G.add_edge(mainNode, exitNode)
 
     return G
