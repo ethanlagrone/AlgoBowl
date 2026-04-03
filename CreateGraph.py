@@ -2,21 +2,16 @@ import networkx as nx
 
 """
 TODO:
-Create a function that creates a graph that accurately models the problem
-
-i-1 = north
-i+1 = south
-j+1 = east
-j-1 = west
+FIGURE OUT HOW TO ADD WEIGHTS
+MAKE IT DIRECTED
 """
 
 def createGraph(wallCount, maze, portalPairCoords):
-    #Im thinking undireceted?
 
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
 
-    
+
     exitNode = ("exit", -1, -1)
     startNode = ('start',-1,-1)
 
