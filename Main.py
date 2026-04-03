@@ -28,7 +28,7 @@ if(NumRows <= 3):
     print("Too few rows")
     exit(1)
 if(NumCols*NumRows > LIMIT):
-    print("Too many rows or columns")
+    print("Too many rows and columns")
     exit(1)
 
 
@@ -40,6 +40,9 @@ PortalCount = 0
 #Actual maze input
 for i in range(NumRows):
     Line = list(input())
+    if(len(Line) != NumCols):
+        print("Incorrect number of columns")
+        exit(1)
     for j in range(NumCols):
         char = Line[j]
         #check for chars to be usable
