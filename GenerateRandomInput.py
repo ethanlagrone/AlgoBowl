@@ -2,7 +2,7 @@ import random
 
 
 #Should always generate valid inputs
-def GenerateRandom():
+def ValidInput():
     W = int(input("Give wall count for random input: "))
 
     NumCols = int(input("Give your wanted number of cols: "))
@@ -41,6 +41,65 @@ def GenerateRandom():
                         continue 
                     else:
                         wallCount += 1    
+                current.append(chosen)
+
+
+    if(len(portals) % 2 != 0):
+        fixPortalCount = random.choice(portals)
+        i,j = fixPortalCount
+        maze[i][j] = '.'
+        portals.remove(fixPortalCount)
+
+    with open("newInput.txt", "a") as file:
+        for array in maze:
+            file.write("\n")
+            for element in array:
+                file.write(str(element))
+
+
+    with open("newInput.txt", "a") as file:
+        file.write("\n")
+        length = len(portals)
+        length = int(length/2)
+        file.write(str(length))
+        for i in range(length):
+            portal1 = random.choice(portals)
+            portals.remove(portal1)
+            portal2 = random.choice(portals)
+            portals.remove(portal2)
+            a,b = portal1
+            i,j = portal2
+            file.write("\n")
+            file.write(str(a) + " " + str(b) + " " + str(i) + " " + str(j))
+
+
+
+#Will likely have too many walls or too many horses
+def LikelyNotValidInput():
+    W = int(input("Give wall count for random input: "))
+
+    NumCols = int(input("Give your wanted number of cols: "))
+    NumRows = int(input("Give your wanted number of rows: "))
+
+    with open("newInput.txt","w") as file:
+        file.write(str(W))
+
+
+    with open("newInput.txt", "a") as file:
+        file.write("\n")
+        file.write(str(NumRows) + " " + str(NumCols))
+
+    mazeTiles = ['.','H','#','W','a','b','c','p']
+    maze = []
+    portals = []
+
+
+    with open("newInput.txt", "a") as file:
+        for i in range(NumRows):
+            maze.append([])
+            current = maze[i]
+            for j in range(NumCols):
+                chosen = random.choice(mazeTiles)
                 current.append(chosen)
 
 
