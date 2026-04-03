@@ -2,17 +2,19 @@ import random
 
 
 #Should always generate valid inputs
-def ValidInput():
+def ValidInput(filename):
     W = int(input("Give wall count for random input: "))
+
+    #filename = "newInput.txt"
 
     NumCols = int(input("Give your wanted number of cols: "))
     NumRows = int(input("Give your wanted number of rows: "))
 
-    with open("newInput.txt","w") as file:
+    with open(filename,"w") as file:
         file.write(str(W))
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         file.write("\n")
         file.write(str(NumRows) + " " + str(NumCols))
 
@@ -23,7 +25,7 @@ def ValidInput():
     wallCount = 0
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         for i in range(NumRows):
             maze.append([])
             current = maze[i]
@@ -50,14 +52,14 @@ def ValidInput():
         maze[i][j] = '.'
         portals.remove(fixPortalCount)
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         for array in maze:
             file.write("\n")
             for element in array:
                 file.write(str(element))
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         file.write("\n")
         length = len(portals)
         length = int(length/2)
@@ -75,17 +77,20 @@ def ValidInput():
 
 
 #Will likely have too many walls or too many horses
-def LikelyNotValidInput():
+def LikelyNotValidInput(filename):
     W = int(input("Give wall count for random input: "))
+
+
+    #filename = "newInput.txt"
 
     NumCols = int(input("Give your wanted number of cols: "))
     NumRows = int(input("Give your wanted number of rows: "))
 
-    with open("newInput.txt","w") as file:
+    with open(filename,"w") as file:
         file.write(str(W))
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         file.write("\n")
         file.write(str(NumRows) + " " + str(NumCols))
 
@@ -94,7 +99,7 @@ def LikelyNotValidInput():
     portals = []
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         for i in range(NumRows):
             maze.append([])
             current = maze[i]
@@ -109,14 +114,14 @@ def LikelyNotValidInput():
         maze[i][j] = '.'
         portals.remove(fixPortalCount)
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         for array in maze:
             file.write("\n")
             for element in array:
                 file.write(str(element))
 
 
-    with open("newInput.txt", "a") as file:
+    with open(filename, "a") as file:
         file.write("\n")
         length = len(portals)
         length = int(length/2)
@@ -130,3 +135,6 @@ def LikelyNotValidInput():
             i,j = portal2
             file.write("\n")
             file.write(str(a) + " " + str(b) + " " + str(i) + " " + str(j))
+
+
+    return
