@@ -29,18 +29,17 @@ def standard():
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
 
     #check that input is valid(horse needs to be able to reach the outside)
-    validation = Validater.validate(graph)
-    if(validation != -1):
+    if(not Validater.horseCanEscape(graph)):
         print("Horse already trapped")
         exit(1)
 
     #Craft our solution
     #startNode = ('start',-1,-1)
-    #not sure if this will be maze or graph
+    #returning a maze
     ourSolution = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords)
 
     #check that solution is valid
-    validation = Validater.validate(CreateGraph.createGraph(WallCount, ourSolution, PortalPairCoords))
+    validation = Validater.score(CreateGraph.createGraph(WallCount, ourSolution, PortalPairCoords))
 
     #print score and our graph
     if(validation == -1):

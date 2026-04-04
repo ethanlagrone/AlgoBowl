@@ -1,10 +1,10 @@
 import networkx as nx
 
-def validate(graph):
+def score(graph):
     startNode = ('start',-1,-1,0)
     reachable = nx.node_connected_component(graph, startNode)
     total = 0
-    
+
     for node in reachable:
         thing,i,j,value = node
         if(thing == 'exit'):

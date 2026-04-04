@@ -7,12 +7,20 @@ import Validater
 TODO:
 Make a function that optimally encloses the horse
 """
+def optimize(maze):
+    #recursively try to optimize the maze(ie. push walls back one and ensure horse cannot escape)
+    return 0
+
+def recursiveEncloseHorse(maze, wallCount, portalPairCoords):
+    #recursively create a maze until some base case
+    return 0
 
 def encloseHorse(maze, wallCount, portalPairCoords):
     changable = ['.', 'W']
     changableNodes = []
     outsideHoles = []
     outsideHoleCount = 0
+    currentNumWalls = 0
 
     #Find all the nodes that we can change to trap the horse 
     #also count how many holes are on the outside
@@ -21,6 +29,8 @@ def encloseHorse(maze, wallCount, portalPairCoords):
             current = maze[i][j]
             if(current == 'W'):
                 maze[i][j] = '.'
+            if(current == 'H'):
+                horseCoords = (i,j)                    
             if(current in changable):
                 changableNodes.append((current,i,j))
                 if(Helper.isOnEdge(i,j,maze)):
@@ -28,7 +38,7 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                     outsideHoles.append((current,i,j))
 
     #Check if we can trap the horse optimally off the bat
-    if(wallCount == outsideHoleCount):
+    if(wallCount >= outsideHoleCount):
         for type,i,j in outsideHoles:
             maze[i][j] = 'W'
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
@@ -37,8 +47,10 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         else:
             return maze
     else:
-        print("This the hard part, not handled yet")
+        #trap horse, then recursively expand
+        print("Not handled yet")
         exit(1)
+            
 
 
     
