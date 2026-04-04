@@ -14,7 +14,8 @@ def encloseHorse(maze, wallCount, portalPairCoords):
     outsideHoles = []
     outsideHoleCount = 0
 
-    #Find all the nodes that we can change to trap the horse and also count how many holes are on the outside
+    #Find all the nodes that we can change to trap the horse 
+    #also count how many holes are on the outside
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             current = maze[i][j]
