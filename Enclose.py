@@ -13,7 +13,6 @@ def optimize(maze):
     return 0
 
 def recursiveEncloseHorse(G, maze, walls, path):
-    #Source: https://stackoverflow.com/questions/44532952/find-number-of-connected-edges-to-a-node-and-node-with-max-connected-edges 
     G.degree()
     grassNodes = []
     for node in path:
@@ -21,7 +20,7 @@ def recursiveEncloseHorse(G, maze, walls, path):
         if(element == '.'):
             grassNodes.append(node)
 
-
+    #Inspiration: https://stackoverflow.com/questions/44532952/find-number-of-connected-edges-to-a-node-and-node-with-max-connected-edges 
     leastConnected = min(grassNodes, key=lambda n: G.degree[n])
     node = leastConnected 
     element,i,j, value = node
@@ -75,9 +74,13 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                 if(current == 'H'):
                     horseCoords = (i,j)  
                 if(current == '.'):
-                    grassNodes.append(('.',i,j,1))  
+                    grassNodes.append(('.',i,j,1)) 
+
+        #rounds of recursion
         rounds = wallCount
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+
+
         while(True):
             rounds -= 1
             path = nx.dijkstra_path(G, startNode, exitNode)
@@ -85,7 +88,6 @@ def encloseHorse(maze, wallCount, portalPairCoords):
             G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
             
-            #Helper.printMaze(maze)
             if(not Validater.horseCanEscape(G)):
                 return maze 
             if(rounds <= 0):

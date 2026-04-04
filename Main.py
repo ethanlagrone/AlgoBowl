@@ -5,6 +5,7 @@ import random
 import CreateGraph
 import Enclose
 import OutputParser
+import Helper
 
 """
 TODO:
@@ -44,12 +45,10 @@ def standard():
     #print score and our graph
     if(validation == -1):
         print("Incorrect or invalid solution")
+        Helper.printMaze(ourSolution)
     else:
         print(validation)
-        for row in ourSolution:
-            print("")
-            for element in row:
-                print(element, end="")
+        Helper.printMaze(ourSolution)
 
 
 #DO WHAT YOU NEED HERE

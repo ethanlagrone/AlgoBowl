@@ -11,8 +11,8 @@ def test():
     flag = True
     while(flag == True):
         W = random.randint(1,15)
-        NumRows = random.randint(10,20)
-        NumCols = random.randint(10,20)
+        NumRows = random.randint(60,90)
+        NumCols = random.randint(60,90)
         GenerateRandomInput.ValidInput("newText.txt",W,NumRows,NumCols)
 
         #take in input
@@ -30,11 +30,10 @@ def test():
             
 
         G = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
-        total = Validater.validate(G)
-        if(total == -1):
+        if(Validater.horseCanEscape(G)):
             flag = False
         else:
-            print("Invalid input\nTotal = " + str(total))
+            print("Invalid input")
     
         
     print("Done")
