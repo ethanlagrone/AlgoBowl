@@ -2,6 +2,7 @@ import networkx as nx
 import Helper
 import CreateGraph
 import Validater
+import random
 
 """
 TODO:
@@ -11,9 +12,16 @@ def optimize(maze):
     #recursively try to optimize the maze(ie. push walls back one and ensure horse cannot escape)
     return 0
 
-def recursiveEncloseHorse(G, maze, walls, grassNodes):
+def recursiveEncloseHorse(G, maze, walls, path):
     #Source: https://stackoverflow.com/questions/44532952/find-number-of-connected-edges-to-a-node-and-node-with-max-connected-edges 
     G.degree()
+    grassNodes = []
+    for node in path:
+        element,i,j,value = node
+        if(element == '.'):
+            grassNodes.append(node)
+
+
     leastConnected = min(grassNodes, key=lambda n: G.degree[n])
     node = leastConnected 
     element,i,j, value = node
@@ -30,6 +38,8 @@ def encloseHorse(maze, wallCount, portalPairCoords):
     outsideHoleCount = 0
     walls = 0
     grassNodes = []
+    exitNode = ("exit", -1, -1, 0)
+    startNode = ("start", -1, -1, 0)
 
     #Find all the nodes that we can change to trap the horse 
     #also count how many holes are on the outside
@@ -66,13 +76,21 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                     horseCoords = (i,j)  
                 if(current == '.'):
                     grassNodes.append(('.',i,j,1))  
-        
+        rounds = wallCount
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
         while(True):
-            maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, grassNodes)
+            rounds -= 1
+            path = nx.dijkstra_path(G, startNode, exitNode)
+            maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path)
             G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+
+            
+            #Helper.printMaze(maze)
             if(not Validater.horseCanEscape(G)):
                 return maze 
+            if(rounds <= 0):
+                Helper.printMaze(maze)
+                return maze
             if(walls >= wallCount):
                 print("Too many walls brother")
                 return maze

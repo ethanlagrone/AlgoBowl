@@ -11,6 +11,7 @@ def getValue(c):
     else:
         return 1
 
+
 def createGraph(wallCount, maze, portalPairCoords):
 
     #all elements in this array are connectable
