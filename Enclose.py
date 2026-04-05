@@ -30,7 +30,7 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
             grassNodes.append(node)
 
     #base case
-    if(walls == 0):
+    if(walls == wallCount):
         return maze, walls, grassNodes
     
     minDegree = float('inf')
@@ -120,7 +120,7 @@ def encloseHorse(maze, wallCount, portalPairCoords):
             
         if(not Validater.horseCanEscape(G)):
             return maze 
-        elif(walls >= wallCount):
+        elif(walls > wallCount):
             print("Too many walls brother")
             return maze
         else:
