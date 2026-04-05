@@ -6,6 +6,8 @@ def outputParser(mazeIn, mazeOut):
     mazeTiles = {'.','H','#','W','a','b','c','p'}
     changable = ['.', 'W']
     inChangables = []
+    inNots = []
+    outNots = []
     outChangables = []
 
     mazeInRows = len(mazeIn)
@@ -19,9 +21,12 @@ def outputParser(mazeIn, mazeOut):
 
     for i in range(len(mazeIn)):
       for j in range(len(mazeIn[i])):
-         current = mazeIn[i][j]
-         if(current in changable):
+        current = mazeIn[i][j]
+        if(current in changable):
             inChangables.append((current,i,j))
+        else:
+           inNots.append((current,i,j))
+            
 
 
 
@@ -33,6 +38,8 @@ def outputParser(mazeIn, mazeOut):
             return False
          if(current in changable):
             outChangables.append((current,i,j))
+         else:
+            outNots.append((current,i,j))
 
     for element,i,j in inChangables:
        if((element,i,j) in outChangables):
@@ -44,5 +51,12 @@ def outputParser(mazeIn, mazeOut):
           else:
              print("Something was changed that shouldn't have been")
              return False
+          
+    for element,i,j in inNots:
+        if((element,i,j) in outNots):
+          continue
+        else:
+            print("Something was changed that shouldn't have been")
+            return False
           
     return True
