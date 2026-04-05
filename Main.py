@@ -38,16 +38,19 @@ def standard():
     #startNode = ('start',-1,-1)
     #returning a maze
     ourSolution = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords)
-
+    if(not OutputParser.outputParser(Maze, ourSolution)):
+        print("Output and input maze don't match")
+        exit(1)
     #check that solution is valid
     validation = Validater.score(CreateGraph.createGraph(WallCount, ourSolution, PortalPairCoords))
 
+    
     #print score and our graph
     if(validation == -1):
         print("Incorrect or invalid solution")
         Helper.printMaze(ourSolution)
     else:
-        print(validation)
+        print(validation, end=" ")
         Helper.printMaze(ourSolution)
 
 

@@ -53,7 +53,14 @@ def ValidInput(filename, W, NumRows, NumCols):
                     else:
                         wallCount += 1    
                 current.append(chosen)
-    maze[int(NumRows/2)][int(NumCols/2)] = 'H'
+
+    horseI= int(NumRows/2)
+    horseJ = int(NumCols/2)
+    maze[horseI][horseJ] = 'H'
+    maze[horseI-1][horseJ] = '.'
+    maze[horseI+1][horseJ] = '.'
+    maze[horseI][horseJ+1] = '.'
+    maze[horseI][horseJ-1] = '.'
 
     if(len(portals) % 2 != 0):
         fixPortalCount = random.choice(portals)

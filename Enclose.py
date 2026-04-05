@@ -10,11 +10,9 @@ Make a function that optimally encloses the horse
 Make a base case
 """
 def optimize(maze):
-    #recursively try to optimize the maze(ie. push walls back one and ensure horse cannot escape)
-    return 0
-
-def garbageCase(maze):
-    #Box the horse if we cant find a solution
+    """recursively try to optimize the maze(ie. push walls back one and ensure horse cannot escape)
+    I'm thinking create subgraphs starting from the walls and see if there's any choke point nodes 
+    ie any nodes with two connections or less"""
     return 0
 
 
