@@ -17,7 +17,9 @@ def optimize(maze):
     return 0
 
 
-def recursiveEncloseHorse(G, maze, walls, path, horseCoords):
+def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
+    exitNode = ("exit", -1, -1, 0)
+    startNode = ("start", -1, -1, 0)
     grassNodes = []
     possibleWallsOnPath = []
     distance = float('-inf')
@@ -27,6 +29,10 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords):
         if(element == '.'):
             grassNodes.append(node)
 
+    #base case
+    if(walls == 0):
+        return maze, walls, grassNodes
+    
     minDegree = float('inf')
     for n in grassNodes:
         if G.degree[n] < minDegree:
@@ -55,7 +61,9 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords):
     maze[x][y] = 'W'
     walls += 1
     grassNodes.remove(node)
-    return maze, walls, grassNodes
+    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+    path = nx.dijkstra_path(G, startNode, exitNode)
+    return recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords)
 
 def encloseHorse(maze, wallCount, portalPairCoords):
     changable = ['.', 'W']
@@ -103,28 +111,25 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                 if(current == '.'):
                     grassNodes.append(('.',i,j,1)) 
         #rounds of recursion
-        rounds = wallCount
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
 
-        while(True):
-            rounds -= 1
-            path = nx.dijkstra_path(G, startNode, exitNode)
-            maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords)
-            G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
-
+        path = nx.dijkstra_path(G, startNode, exitNode)
+        maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords)
+        G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
             
-            if(not Validater.horseCanEscape(G)):
-                return maze 
-            if(rounds <= 0):
-                path = nx.dijkstra_path(G, startNode, exitNode)
-                print("Path that breaks the answer: ")
-                for element in path:
-                    print(str(element), end=" ")
-                exit(1)
-            if(walls >= wallCount):
-                print("Too many walls brother")
-                return maze
+        if(not Validater.horseCanEscape(G)):
+            return maze 
+        elif(walls >= wallCount):
+            print("Too many walls brother")
+            return maze
+        else:
+            path = nx.dijkstra_path(G, startNode, exitNode)
+            print("Path that breaks the answer: ")
+            for element in path:
+                print(str(element), end=" ")
+            exit(1)
+        
 
 
             
