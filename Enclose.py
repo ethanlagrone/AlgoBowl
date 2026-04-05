@@ -117,13 +117,22 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         path = nx.dijkstra_path(G, startNode, exitNode)
         maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords)
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
-            
+
+
+        """
+        #Will be this but need to implement optimize
+        while(not Validater.horseCanEscape(G)):
+            maze = optimize(maze)
+            G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+        """
+        
         if(not Validater.horseCanEscape(G)):
             return maze 
         elif(walls > wallCount):
             print("Too many walls brother")
             return maze
         else:
+
             path = nx.dijkstra_path(G, startNode, exitNode)
             print("Path that breaks the answer: ")
             for element in path:
