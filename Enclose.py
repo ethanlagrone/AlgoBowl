@@ -75,7 +75,6 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                     horseCoords = (i,j)  
                 if(current == '.'):
                     grassNodes.append(('.',i,j,1)) 
-
         #rounds of recursion
         rounds = wallCount
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
@@ -91,8 +90,11 @@ def encloseHorse(maze, wallCount, portalPairCoords):
             if(not Validater.horseCanEscape(G)):
                 return maze 
             if(rounds <= 0):
-                Helper.printMaze(maze)
-                return maze
+                path = nx.dijkstra_path(G, startNode, exitNode)
+                print("Path that breaks the answer: ")
+                for element in path:
+                    print(str(element), end=" ")
+                exit(1)
             if(walls >= wallCount):
                 print("Too many walls brother")
                 return maze

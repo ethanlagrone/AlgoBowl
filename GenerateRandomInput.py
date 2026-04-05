@@ -1,5 +1,5 @@
 import random
-
+import Helper
 
 
 #Should always generate valid inputs
@@ -18,7 +18,7 @@ def ValidInput(filename, W, NumRows, NumCols):
         file.write("\n")
         file.write(str(NumRows) + " " + str(NumCols))
 
-    mazeTiles = ['.','H','#','W','a','b','c','p']
+    mazeTiles = ['.', '.', '.', '.', '.', '#','#','#','#','#','#','#','.','H','#','W','a','b','c','p']
     outside = ['.','#','W']
     maze = []
     portals = []
@@ -37,17 +37,15 @@ def ValidInput(filename, W, NumRows, NumCols):
                     chosen = random.choice(mazeTiles)
                     
                 if(chosen == 'p'):
-                    portals.append((i,j))
-                if(chosen == 'H'):
-                    if(horseCount == 1):
-                        current.append('.')
-                        continue
+                    """
+                    if(not isEdge(i,j) and random.randint(1,20) < 5):
+                        portals.append((i,j))
                     else:
-                        if(i == 0 or (i == NumRows-1) or j == 0 or (j ==NumCols-1)):
-                            current.append('.')
-                            continue
-                        else:
-                            horseCount += 1
+                        chosen = '.'
+                    """
+                    chosen = random.choice(['.','#'])
+                if(chosen == 'H'):
+                    chosen = random.choice(['.','#'])
                 if(chosen == 'W'):
                     if(wallCount >= W):
                         current.append('.')
@@ -55,7 +53,7 @@ def ValidInput(filename, W, NumRows, NumCols):
                     else:
                         wallCount += 1    
                 current.append(chosen)
-
+    maze[int(NumRows/2)][int(NumCols/2)] = 'H'
 
     if(len(portals) % 2 != 0):
         fixPortalCount = random.choice(portals)

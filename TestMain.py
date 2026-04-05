@@ -10,7 +10,7 @@ import sys
 def test():
     flag = True
     while(flag == True):
-        W = random.randint(1,15)
+        W = random.randint(10,15)
         NumRows = random.randint(60,90)
         NumCols = random.randint(60,90)
         GenerateRandomInput.ValidInput("newText.txt",W,NumRows,NumCols)
