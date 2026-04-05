@@ -1,5 +1,5 @@
 #Throw random helper functions in here
-
+import math
 def isOnEdge(i,j,maze):
     if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
         return True
@@ -23,3 +23,24 @@ def clearWalls(maze):
             element = maze[i][j]
             if(element == 'W'):
                 maze[i][j] = '.'
+
+
+def getValue(c):
+    if c == 'a':
+        return 11
+    elif c == 'b':
+        return -4
+    elif c == 'c':
+        return 4
+    else:
+        return 1
+    
+def getDistance(horseCoords, node):
+    distance = 0
+    horseI,horseJ = horseCoords
+    i,j = node
+
+    distance += math.sqrt(((abs(horseI-i))**2) + ((abs(horseJ-j))**2))
+
+    return distance
+    

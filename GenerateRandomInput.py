@@ -18,7 +18,7 @@ def ValidInput(filename, W, NumRows, NumCols):
         file.write("\n")
         file.write(str(NumRows) + " " + str(NumCols))
 
-    mazeTiles = ['.', '.', '.', '.', '.', '#','#','#','#','#','#','#','.','H','#','W','a','b','c','p']
+    mazeTiles = ['.', '.', '.', '.', '.', '#','#','#','#','H','W','a','b','b','c','c','p']
     outside = ['.','#','W']
     maze = []
     portals = []
@@ -37,13 +37,13 @@ def ValidInput(filename, W, NumRows, NumCols):
                     chosen = random.choice(mazeTiles)
                     
                 if(chosen == 'p'):
-                    """
-                    if(not isEdge(i,j) and random.randint(1,20) < 5):
+
+                    if(not isEdge(i,j) and random.randint(1,20) < 4):
                         portals.append((i,j))
                     else:
                         chosen = '.'
-                    """
-                    chosen = random.choice(['.','#'])
+                    
+                    #chosen = random.choice(['.','#'])
                 if(chosen == 'H'):
                     chosen = random.choice(['.','#'])
                 if(chosen == 'W'):

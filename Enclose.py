@@ -10,29 +10,52 @@ Make a function that optimally encloses the horse
 Make a base case
 """
 def optimize(maze):
-    """recursively try to optimize the maze(ie. push walls back one and ensure horse cannot escape)
-    I'm thinking create subgraphs starting from the walls and see if there's any choke point nodes 
-    ie any nodes with two connections or less"""
+    """
+    New idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
+    So, we run dijkstras to all the walls and find the node that could get us walls back, remove the walls that are now isolated, 
+    place the new one,a nd then run recursive again with walls = however many walls we now have"""
     return 0
 
 
-def recursiveEncloseHorse(G, maze, walls, path):
-    G.degree()
+def recursiveEncloseHorse(G, maze, walls, path, horseCoords):
     grassNodes = []
+    possibleWallsOnPath = []
+    distance = float('-inf')
+    furthestNode = None
     for node in path:
         element,i,j,value = node
         if(element == '.'):
             grassNodes.append(node)
 
-    #Inspiration: https://stackoverflow.com/questions/44532952/find-number-of-connected-edges-to-a-node-and-node-with-max-connected-edges 
-    leastConnected = min(grassNodes, key=lambda n: G.degree[n])
-    node = leastConnected 
-    element,i,j, value = node
-    if(maze[i][j] == '.'):
-        maze[i][j] = 'W'
-        walls += 1
-        grassNodes.remove(node)
-        return maze, walls, grassNodes
+    minDegree = float('inf')
+    for n in grassNodes:
+        if G.degree[n] < minDegree:
+            minDegree = G.degree[n]
+
+    leastConnected = []
+    for n in grassNodes:
+        if G.degree[n] == minDegree:
+            leastConnected.append(n)
+
+    for node in leastConnected:
+        element, i, j, value = node
+        if maze[i][j] == '.':
+            possibleWallsOnPath.append((i, j))
+    
+    for i,j in possibleWallsOnPath:
+        nextDistance = Helper.getDistance(horseCoords, (i,j))
+        if(nextDistance > distance):
+            distance = nextDistance
+            furthestNode = (i,j)
+
+    if furthestNode is None:
+        return maze, walls+1, grassNodes
+    x,y = furthestNode
+    node = (maze[x][y],x,y,Helper.getValue(maze[x][y]))
+    maze[x][y] = 'W'
+    walls += 1
+    grassNodes.remove(node)
+    return maze, walls, grassNodes
 
 def encloseHorse(maze, wallCount, portalPairCoords):
     changable = ['.', 'W']
@@ -87,7 +110,7 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         while(True):
             rounds -= 1
             path = nx.dijkstra_path(G, startNode, exitNode)
-            maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path)
+            maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords)
             G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
             

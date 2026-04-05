@@ -25,7 +25,7 @@ def test(filename):
 
 
         #check for validity
-        if(inputValidity == -1):
+        if(inputValidity == "Invalid"):
             continue
         
         WallCount, Maze, PortalPairCoords = inputValidity
