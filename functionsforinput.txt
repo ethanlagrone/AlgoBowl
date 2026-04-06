@@ -1,0 +1,12 @@
+number of walls needed for nxn box = 4n - 4
+number of rows in a fully expanded nxn box = 2n - 3, n is odd and >= 3
+number of spaces in a minimally expanded box = (n - 2)^2, n is odd and >= 3
+number of spaces in a maximally expanded box = 2n^2 - 6n + 5, n is odd and >= 3
+difference between these = n^2 - 2n + 1, n is odd and >= 3
+
+goal: 49 x 49 box (maximizes conditions while keeping number odd)
+walls needed = 192
+number of rows in fully expanded box = 97
+number of spaces in minimally expanded box = 2209
+number of spaces in maximally expanded box = 4513
+difference = 2304

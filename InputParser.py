@@ -40,7 +40,7 @@ def inputParser():
             char = Line[j]
             #check for chars to be usable
             if(char not in mazeTiles):
-                print("Bad input")
+                print("Bad character")
                 return "Invalid"  
             #Count walls to ensure there are not too many
             if(char == 'W'):
@@ -53,11 +53,11 @@ def inputParser():
                 PortalCount += 1
                 PortalCoordinates.append((i,j))
             #Count horses
-            if(char == 'H'):
-                HorseCount += 1
-                if(HorseCount > 1):
-                    print("too many horses")
-                    return "Invalid"
+            if(char == 'H'):                
+                if(HorseCount >= 1):
+                    Line[j] = '.'
+                else:
+                    HorseCount += 1
             
         Maze.append(Line)
 

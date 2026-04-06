@@ -1,15 +1,15 @@
 import random
+import Helper
 
 
 #Should always generate valid inputs
-def ValidInput(filename):
-    W = int(input("Give wall count for random input: "))
-
-    #filename = "newInput.txt"
-
-    NumCols = int(input("Give your wanted number of cols: "))
-    NumRows = int(input("Give your wanted number of rows: "))
-
+def ValidInput(filename, W, NumRows, NumCols):
+    def isEdge(i,j):
+        if(i == 0 or (i == NumRows-1) or j == 0 or (j ==NumCols-1)):
+            return True
+        else:
+            return False
+        
     with open(filename,"w") as file:
         file.write(str(W))
 
@@ -18,7 +18,8 @@ def ValidInput(filename):
         file.write("\n")
         file.write(str(NumRows) + " " + str(NumCols))
 
-    mazeTiles = ['.','H','#','W','a','b','c','p']
+    mazeTiles = ['.', '.', '.', '.', '.', '#','#','#','#','H','W','a','b','b','c','c','p']
+    outside = ['.','#','W']
     maze = []
     portals = []
     horseCount = 0
@@ -30,13 +31,21 @@ def ValidInput(filename):
             maze.append([])
             current = maze[i]
             for j in range(NumCols):
-                chosen = random.choice(mazeTiles)
+                if(isEdge(i,j)):
+                    chosen = random.choice(outside)
+                else:
+                    chosen = random.choice(mazeTiles)
+                    
                 if(chosen == 'p'):
-                    portals.append((i,j))
+
+                    if(not isEdge(i,j) and random.randint(1,20) < 4):
+                        portals.append((i,j))
+                    else:
+                        chosen = '.'
+                    
+                    #chosen = random.choice(['.','#'])
                 if(chosen == 'H'):
-                    if(horseCount == 1):
-                        current.append('.')
-                        continue
+                    chosen = random.choice(['.','#'])
                 if(chosen == 'W'):
                     if(wallCount >= W):
                         current.append('.')
@@ -45,6 +54,13 @@ def ValidInput(filename):
                         wallCount += 1    
                 current.append(chosen)
 
+    horseI= int(NumRows/2)
+    horseJ = int(NumCols/2)
+    maze[horseI][horseJ] = 'H'
+    maze[horseI-1][horseJ] = '.'
+    maze[horseI+1][horseJ] = '.'
+    maze[horseI][horseJ+1] = '.'
+    maze[horseI][horseJ-1] = '.'
 
     if(len(portals) % 2 != 0):
         fixPortalCount = random.choice(portals)
@@ -77,15 +93,7 @@ def ValidInput(filename):
 
 
 #Will likely have too many walls or too many horses
-def LikelyNotValidInput(filename):
-    W = int(input("Give wall count for random input: "))
-
-
-    #filename = "newInput.txt"
-
-    NumCols = int(input("Give your wanted number of cols: "))
-    NumRows = int(input("Give your wanted number of rows: "))
-
+def LikelyNotValidInput(filename, W, NumRows, NumCols):
     with open(filename,"w") as file:
         file.write(str(W))
 

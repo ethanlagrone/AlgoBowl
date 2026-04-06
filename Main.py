@@ -4,6 +4,8 @@ import GenerateRandomInput
 import random
 import CreateGraph
 import Enclose
+import OutputParser
+import Helper
 
 """
 TODO:
@@ -27,20 +29,29 @@ def standard():
     #create graph from input
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
 
+    #check that input is valid(horse needs to be able to reach the outside)
+    if(not Validater.horseCanEscape(graph)):
+        print("Horse already trapped")
+        exit(1)
+
     #Craft our solution
     #startNode = ('start',-1,-1)
-    ourSolution = Enclose.encloseHorse(graph)
-
+    #returning a maze
+    ourSolution = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords)
+    if(not OutputParser.outputParser(Maze, ourSolution, WallCount)):
+        print("Output and input maze don't match")
+        exit(1)
     #check that solution is valid
-    validation = Validater.validate(ourSolution)
+    validation = Validater.score(CreateGraph.createGraph(WallCount, ourSolution, PortalPairCoords))
 
+    
     #print score and our graph
-    if(validation == 0):
+    if(validation == -1):
         print("Incorrect or invalid solution")
+        Helper.printMaze(ourSolution)
     else:
-        print(validation)
-        print(ourSolution)
-
+        print(validation, end=" ")
+        Helper.printMaze(ourSolution)
 
 
 #DO WHAT YOU NEED HERE
@@ -57,11 +68,12 @@ def test():
         
 
     G = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
-    """print("\nNodes:\n") 
-    print(G.nodes())
+    total = Validater.validate(G)
+    if(total == -1):
+        print("Valid Input")
+    else:
+        print("Invalid input\nTotal = " + str(total))
 
-    print("\nEdges:\n")
-    print(G.edges()) """
 
-test()
-#standard()
+#test()
+standard()
