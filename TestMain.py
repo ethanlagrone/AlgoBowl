@@ -12,7 +12,7 @@ import OutputParser
 def test(filename):
     flag = True
     while(flag == True):
-        W = random.randint(10,15)
+        W = random.randint(150,151)
         NumRows = random.randint(60,90)
         NumCols = random.randint(60,90)
         GenerateRandomInput.ValidInput(filename,W,NumRows,NumCols)
