@@ -11,6 +11,9 @@ difference from maximum = 8n - 32 = 2 * (number of bees)
 
 -- evil bees format --
 number of bees = 0.5n^2 - 2n + 1.5
+number of apples = 8
+number of spaces in optimal solution = n^2 - 2n - 6
+difference from maximum = n^2 - 4n + 11
 
 
 goal: 49 x 49 box (maximizes conditions while keeping number odd)
