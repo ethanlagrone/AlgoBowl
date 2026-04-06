@@ -8,9 +8,9 @@ center = int(board_size / 2)
 grid = [['.' for _ in range(board_size)] for _ in range(board_size)]
 
 steps_to_center = int(0.25 * board_size + 0.75)
-triangle_height = steps_to_center - 1 
+triangle_height = steps_to_center - 2
 
-# top bees5
+# top bees
 for i in range(1, triangle_height + 1):
     row = i
     width = i - 1
