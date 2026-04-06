@@ -19,9 +19,9 @@ for i in range(1, triangle_height + 1):
     for j in range(start_j, end_j + 1, 2):
         grid[row][j] = 'b'
         if i == triangle_height:
-            if j == start_j: # First gap
+            if j == start_j:
                 grid[row][j + 1] = 'a'
-            elif j == end_j - 2: # Last gap (before the final 'b')
+            elif j == end_j - 2:
                 grid[row][j + 1] = 'a'
 
 # bottom bees
