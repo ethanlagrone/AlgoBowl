@@ -30,10 +30,10 @@ def standard():
     graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
 
     #check that input is valid(horse needs to be able to reach the outside)
-    """if(not Validater.horseCanEscape(graph)):
-        print("Horse already trapped")
+    if(Validater.horseCanEscape(graph)):
+        print("Horse not trapped")
         exit(1)
-    """
+    
     #Craft our solution
     #startNode = ('start',-1,-1)
     #returning a maze
