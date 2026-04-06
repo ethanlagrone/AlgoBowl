@@ -9,9 +9,20 @@ TODO:
 Make a function that optimally encloses the horse
 Make a base case
 """
+
+def inchWallsIn():
+    """
+    New and better idea I think Move furthest wall along path of grass nodes with degree of 2 closer, 
+    and if you cant access a wall then you can remove it and rerun recursiveHorse()
+    """
+    return 0
+
+
+
+
 def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     """
-    New idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
+    Old idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
     So, we run dijkstras to all the walls and find the node that could get us walls back, remove the walls that are now isolated, 
     place the new one,a nd then run recursive again with walls = however many walls we now have
     """
