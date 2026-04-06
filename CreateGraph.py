@@ -100,7 +100,7 @@ def createGraph(wallCount, maze, portalPairCoords):
 
 
 
-def createWallGraph(wallCount, maze, portalPairCoords):
+def createWalledGraph(wallCount, maze, portalPairCoords):
 
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
@@ -112,7 +112,7 @@ def createWallGraph(wallCount, maze, portalPairCoords):
     
 
 
-    G = nx.Graph()
+    G = nx.DiGraph()
 
 
     #create all nodes format: (element, i coordinate, j coordinate)
@@ -147,6 +147,7 @@ def createWallGraph(wallCount, maze, portalPairCoords):
             #make start node connected to horse
             if(mainElement == 'H'):
                 G.add_edge(mainNode, startNode)
+                G.add_edge(startNode, mainNode)
 
             if(mainElement == 'W'):
                 wallExit = ("wall",i,j,0)
@@ -161,6 +162,7 @@ def createWallGraph(wallCount, maze, portalPairCoords):
                     value = getValue(current)
                     currentNode = (current, i-1,j, value)
                     G.add_edge(mainNode, currentNode)
+                    G.add_edge(currentNode, mainNode)
 
             #south edge
             if(i+1 != len(maze)):
@@ -169,6 +171,7 @@ def createWallGraph(wallCount, maze, portalPairCoords):
                     value = getValue(current)
                     currentNode = (current, i+1,j, value)
                     G.add_edge(mainNode, currentNode)
+                    G.add_edge(currentNode, mainNode)
 
             #east edge
             if(j+1 != len(maze[i])):
@@ -177,6 +180,7 @@ def createWallGraph(wallCount, maze, portalPairCoords):
                     value = getValue(current)
                     currentNode = (current, i,j+1, value)
                     G.add_edge(mainNode, currentNode)
+                    G.add_edge(currentNode, mainNode)
             
             #west edge
             if(j != 0):
@@ -185,9 +189,11 @@ def createWallGraph(wallCount, maze, portalPairCoords):
                     value = getValue(current)
                     currentNode = (current, i,j-1, value)
                     G.add_edge(mainNode, currentNode)
+                    G.add_edge(currentNode, mainNode)
 
             #exits
             if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
                 G.add_edge(mainNode, exitNode)
+                G.add_edge(exitNode, mainNode)
 
     return G

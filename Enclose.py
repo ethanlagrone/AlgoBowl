@@ -5,16 +5,29 @@ import Validater
 import random
 
 """
-TODO:
-Make a function that optimally encloses the horse
-Make a base case
+Honestly open to scraping this now :(
 """
 
-def inchWallsIn():
+def inchWallsIn(maze, wallCount, portalPairCoords, walls, horseCoords):
     """
     New and better idea I think Move furthest wall along path of grass nodes with degree of 2 closer, 
     and if you cant access a wall then you can remove it and rerun recursiveHorse()
     """
+    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+    freedWalls = 0
+    exitNode = ("exit", -1, -1, 0)
+    startNode = ("start", -1, -1, 0)
+
+    
+    
+    walls = walls-freedWalls
+    if(freedWalls > 0):
+        try:
+            path = nx.dijkstra_path(G, startNode, exitNode)
+            return recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
+        except nx.NetworkXNoPath:
+            return maze, freedWalls, [] 
+
     return 0
 
 
