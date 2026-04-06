@@ -5,7 +5,7 @@
 
 n = 49
 board_size = 2 * n - 1
-wall_count = 4 * 49 - 4
+wall_count = 4 * n - 4
 
 center = int(board_size / 2)
 grid = [['.' for _ in range(board_size)] for _ in range(board_size)]
