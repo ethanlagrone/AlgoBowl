@@ -5,8 +5,17 @@ import Validater
 import random
 
 """
-Honestly open to scraping this now :(
+New and better idea, start by using dijkstras to find a minimum viable solution
+Then push out and optimize
 """
+
+def expand():
+    """
+    TODO:
+    Given a maze and whatever else, you maximize the amount of space the horse is covering
+    """
+    return 0
+
 
 def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
     #pretty sure this is optimal not taking into account bees and given enough walls
