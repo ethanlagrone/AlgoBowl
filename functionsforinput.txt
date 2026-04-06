@@ -4,9 +4,19 @@ number of spaces in a minimally expanded box = (n - 2)^2, n is odd and >= 3
 number of spaces in a maximally expanded box = 2n^2 - 6n + 5, n is odd and >= 3
 difference between these = n^2 - 2n + 1, n is odd and >= 3
 
+-- current input format --
+number of bees = 4n - 16
+number of spaces in optimal solution = 2n^2 - 14n + 37
+difference from maximum = 8n - 32 = 2 * (number of bees)
+
+
 goal: 49 x 49 box (maximizes conditions while keeping number odd)
 walls needed = 192
 number of rows in fully expanded box = 97
 number of spaces in minimally expanded box = 2209
 number of spaces in maximally expanded box = 4513
 difference = 2304
+
+number of bees = 180
+number of spaces in optimal solution = 4153
+difference from maximum = 360
