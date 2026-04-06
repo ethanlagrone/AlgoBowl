@@ -1,6 +1,8 @@
 # this code is some BULLSHIT
 # if we decide we want to slightly change how the input works, morgan is capable of updating this code
 
+# i believe all of the bees that this code places should be there no matter what, it's just a question of whether we should add more
+
 board_size = 97
 center = int(board_size / 2)
 grid = [['.' for _ in range(board_size)] for _ in range(board_size)]
