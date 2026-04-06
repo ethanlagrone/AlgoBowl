@@ -18,6 +18,9 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     startNode = ("start", -1, -1, 0)
     allPaths = []
     nodeAppearence = dict()
+    exitNode = ("exit", -1, -1, 0)
+    freedWalls = 0
+
     G = CreateGraph.createWallGraph(wallCount, maze, portalPairCoords)
     for i,j in wallCords:
         wallExit = ("wall",i,j,0)
@@ -33,25 +36,44 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
             element,i,j,val = node
             if(element == '.'):
                 if(node not in nodeAppearence):
-                    nodeAppearence[node] = 1
-                elif(node in nodeAppearence):
-                    nodeAppearence[node] += 1
+                    nodeAppearence[node] = []
+                nodeAppearence[node].append(array)
 
     mostAppearingNode = None
     largestDistance = 0
-    for node, count in nodeAppearence.items():
-        print(node, count)
+    for node, paths in nodeAppearence.items():
+        print(node, paths)
         element,i,j,val = node
         distance = Helper.getDistance(horseCoords,(i,j))
         degree = G.degree[node]
-        if 0 < degree <= 2 and distance >= largestDistance and count >= 2:
+        if 0 < degree <= 2 and distance >= largestDistance and len(paths) >= 2:
             mostAppearingNode = node
+            wallsCovered = paths
 
     if mostAppearingNode is not None:
         element, i, j, val = mostAppearingNode
+        redundantWalls = set()
+        for path in wallsCovered:
+            for k in range(len(path)):
+                pathElement, pi, pj, pval = path[k]
+                if pathElement == 'W':
+                    redundantWalls.add((pi, pj))
+
+        for i, j in redundantWalls:
+            if freedWalls < len(wallsCovered) - 1:
+                maze[i][j] = '.'
+                freedWalls += 1
         maze[i][j] = 'W'
-    print("Most frequent node in paths: " + str(mostAppearingNode))
-    return 0
+
+    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+    if(Validater.horseCanEscape(G)):
+        try:
+            path = nx.dijkstra_path(G, startNode, exitNode)
+            return recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
+        except nx.NetworkXNoPath:
+            return maze, freedWalls, [] 
+
+    return maze, 0, []
 
 
 def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
@@ -173,7 +195,8 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         while(Validater.horseCanEscape(G)):
             if(attempts > maxAttempts):
                 break
-            maze = optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords)
+            result = optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords)
+            maze, walls, path = result
             G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
             wallCoords = []
             for i in range(len(maze)):
