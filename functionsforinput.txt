@@ -9,6 +9,9 @@ number of bees = 4n - 16
 number of spaces in optimal solution = 2n^2 - 14n + 37
 difference from maximum = 8n - 32 = 2 * (number of bees)
 
+-- evil bees format --
+number of bees = 0.5n^2 - 2n + 1.5
+
 
 goal: 49 x 49 box (maximizes conditions while keeping number odd)
 walls needed = 192
