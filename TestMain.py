@@ -63,7 +63,7 @@ def runMain(filename):
         Helper.printMaze(ourSolution)
         return False
     else:
-        if(OutputParser.outputParser(Maze,ourSolution)):
+        if(OutputParser.outputParser(Maze,ourSolution, WallCount)):
             with open(outputFile ,"w") as file:
                 file.write(str(validation) +  " ")
             with open(outputFile ,"a") as file:

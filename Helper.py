@@ -44,3 +44,13 @@ def getDistance(horseCoords, node):
 
     return distance
     
+
+def countWalls(maze):
+    count = 0
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            element = maze[i][j]
+            if(element == 'W'):
+                count += 1
+
+    return count

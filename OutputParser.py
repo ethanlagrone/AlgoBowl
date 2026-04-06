@@ -2,7 +2,7 @@
 import InputParser
 import Helper
 
-def outputParser(mazeIn, mazeOut):
+def outputParser(mazeIn, mazeOut, wallCount):
     mazeTiles = {'.','H','#','W','a','b','c','p'}
     changable = ['.', 'W']
     inChangables = []
@@ -59,4 +59,7 @@ def outputParser(mazeIn, mazeOut):
             print("Something was changed that shouldn't have been")
             return False
           
+    if(Helper.countWalls(mazeOut) > wallCount):
+       print("num of walls is greater than allowed amount")
+       return False
     return True

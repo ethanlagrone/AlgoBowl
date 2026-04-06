@@ -38,7 +38,7 @@ def standard():
     #startNode = ('start',-1,-1)
     #returning a maze
     ourSolution = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords)
-    if(not OutputParser.outputParser(Maze, ourSolution)):
+    if(not OutputParser.outputParser(Maze, ourSolution, WallCount)):
         print("Output and input maze don't match")
         exit(1)
     #check that solution is valid
