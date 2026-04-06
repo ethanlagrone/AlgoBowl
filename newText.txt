@@ -1,105 +1,110 @@
-150
-79 78
-W##WWW#..#W.####.W##.##.W..#WWW#W####..W###W.##WWWWWW##W#W##.WW#WW.##..#..W###
-#a##ba#c.##.W.#b.#.bc#cc##W..c##Wa.##b.##....c#ba.b##.##.a...a.W..#.a##W##bb..
-.bcacW....c.#..W..##Wa#cca#a..a.b.cab.b##.a#c#b#cc...#bba#.#.#c..c#a.W....c...
-W.pb#..#.b..#p.#b.#..b.W.b.pb.b.c#abW...cbbaca#.b...cbcb..b..#.bWW####.#..#.WW
-#WWb#.#b#....bbac.c#W..#cbcab...#..bbW.W#.#.#.W...#b#W#..ac.#.c#a.#...b#..#.bW
-Wb#ac.####b.W.Waa#c#p#.bc#.a#.c#W.#.cc..c.bc#.#a.aa#.#W.####..W#c.c.b...b#c#.#
-#..c#cWW#b.b...b.ac.##W#.#.a#b.b#.#c#.c###.a##bb.#.p...bc#b#.##b##ab.cW#bW####
-Wbaabb..##a##c#W.##a.#c.p..#..b#.bc....c.##b......#..bc#..a..acb.##.#Wc##b.##W
-W.b#..#c#.#cWc.c.##Wb.....c..Wbb..#.W#W...#.a#a.b..b###.#Wb.#b#.b.b.c...#..baW
-W.b..#...W.#.c..W#b..#c#.c#c.......#W...#aW..#b.a##..#W##.bb.##.#pc.c.#ccb.##.
-Wc.aW#b#.#.#.a#bc.####c.c###.##.c##.#b#.c#W.bcb#.W##..#W.c#.b.##...ccc#c...cb#
-.#ab#..bc###.ca.#.##.b#c..b##.a..bacba.#.W..W#W.##...W..aa....bcb#aa#a.b...#..
-##..b.c#....#bcWa.c#.#.#cb##b.#####W###.bW#cW#....b##bc##..Wb..b.#a.c##ccc...#
-.#c#..#.##bcW.b..c##..#.caa.bcbcbcb#.b##...b#.#c...c##W.bcbb.bb.#.##..c#W.#c..
-W#p.#.cb####.#.b.c....bc#a.cbbbb#.#b.aa#c..##c.b#...c#b..#.#..c....a.##..#c..#
-..c.b#...bb...##...#.#..b..bWb#ccWbbW#.#...c#.#aca.b.#c.W..##bbWc.#a.#.#.a#a.W
-....#cc#.##c...c#.###c.##c##.WW.b.W##c.#.cbb....##bbW#c###c..W##b.W.a.#a###.b.
-.#b....#c.#.Wbbb##W.b#W...Wa.Wb.a...#.#.aWWWbbcbabba#ba##cc.b.#.#.#.#bbc.b.bc#
-.cbW.#b#..#bbWb..p...cWbW#bc.cca.c#.#b#.b.bcbc#.c#ac.c#c#aWcc..c#WacWcbcb..bc#
-W.cc.cac#....#W##bWb..#..c#.###.c..bc.c#..a.W##.aW#...#W...c....c.#.Wc#.#W..#W
-.c...ba.c...b#c##.#.W#.#...cb#..#cWW.ab#..#.cb#c.b..ab#W..b#c.....b.c###WWcc.W
-.#c#ca...##W.##...cb#Wb.#b.bab.#b.#.b....#.cWb.#a..b##c###a#.........b#.a.#.##
-W.W..#.#c.#W#b##...bbcbW.#ab..W.###..c##.#.bbc.W#c.c..b.##bcc#.ab#Wa.#.bbb#b..
-#b..#.bc#.##a...#b.##.#b.c#b##.#.##b...##b.#ab.....#..#..#cc.abac....c#c#.#.#.
-..cb#bb#cb.....#.....#bp.b#.cba#bb##...#b.#..ba.#bc.b###.b.#..c#.##ca.c...b##.
-..cc#...##..#.c.#.b..ba.#.c.a.b###..####cbc#.a.a..#.b...#...#...b.c#..a.c..c..
-..#pc.bba####c..cb###b#..##.ca##b#.a..##a#.a###a..#abbbb.#.abp##..b#cc##c.c...
-##.c..#..c.c#..cbb#cba.c.c....bc#..#bc.ac........#.b.c..#...#c.bb..a#b..cb..##
-#b#b...#.c#cc.##....cc##caa.#.#.#c...cccb..b.#.#...b..c...#.b#cb#.######..#.c#
-.cb..c.cb#..c..b#bbc##c.c.####.b.c#...#b.#.c##..#.#b.cc#c.#abc..#.cc#.a..b.a..
-.ccb#.c..b.###b#.b..#.c....#..###...a#.#..#....c.#c.#b..#b..c..a......c#b.....
-..#c##.a###ca.#.##..b#.#.#b.###..#.b...a#b..#b.b##.b...#c.##bcacp..#..##.bc...
-##..##bb.c#b#b###.#..b..#a.#c.c..b.#..#.#.c.#c##.ba.....pba.b#.#cbc.b.#..#b.b#
-..b.##bc#.b.b...#c..#.b#b..#b.b.#..b#....#cp...a#...###....###b.#cbc#..#.#ca.#
-#.b..##..#b.c##cb#.b.#..#.ca.a.ac.b.##..a.#a.....c#....c.cc.b#b#b.a.##..a#b.#.
-.c#.#.#.cb.b...a#.cbaab..###.a.cab#.bab.#..#.#ccbb##bcc.##ab#..#c#....c###b...
-...c#..#..##ba###b..#.....#.cc..a#...c.#.bc.##.cc......###..cb.#.a#.##..c.#b.#
-#c.#..b#a..##....cca.#...c...#.#.c.bbc.#.##bbbb.#.c.#.....##...c..#.b.....a..#
-.....b##b.#.#.#a##.bb..#..#b.c.#a##.#bb..#..c..ca####b..c#c.c.#.#...#.bbb.ab##
-.#c#bb.#c.c.a#.ba.b#ac####..c.#b..b..c.H.c..#c.##c...c..c#####.c#c.#.c.##..b#.
-###.c#cb.cb.....##...#.#.abb#...#pc.......b#cb.b#.c#p#.#.ab.....#cc.cb#.#...b#
-.#.#a.bc.#..bc#bbbp.##.#.##b#..#.c#b..b#c.c.c....a.b.cb#.c##bbcba#c..ba#c..#.#
-..c...c..c.#b##c#c#cbb..##cb..cb..bc.c#bb##b###ab#a.#.b.###.c##.#bb#.b....b...
-.#b....b.a.#..b..##cba..c#...b#.a#c#..b...c.#.###b#...cc...bc..bca#.###.###...
-.b#.##..c.c#.abc..c.#..#aa##.##.##b.........#.#.cbc..#bp#.b.a...bc#.ba.#..#aa.
-....ca.#a#..b##.cb#ab...ca#bc.bc.#p##c....#.#bb#.c#..#.#b#......p..a.##b##..b.
-#c.ca#b...b#.b.###bbbb#c..cpcc#.cc#b.c#c..##b#c.##.ac.#...#..cccb.##c#b.b.b#..
-#aac..#.##..b.##c...c#..##.b.a.....#c..bb.#cbc.bb.#...c..c.#..###.#ccc####.#..
-.##...#..#..ccbbap#......#....#...#..cbc#b..#c.b..#.c#a..#.##.##.a....ca#.#...
-.#..c#..c#b.c#.#bc###b.b.#..#..#...c#c#..c..#c.b..b.#.....#.b...bba...#...c...
-..##b.c..b#..b.#.#..#.c#.#####..###b.b.a....a#..a.a#b..cb..p.#.#bc.b..#b......
-.b...c#..##.#b.b..#a.#.b.#b#.c#a#...#b##c#....cc..b.acc......bb#.#.bb###ab.#b.
-.#..#.c##.#c..##..bb#.#b.c###c..a.###.b.b.aa...a#c..#.#.bbbc##b.#..a.c...b.cc#
-.b.#bcc#a..#a##.bp#b.bb#.b###c..#..###b.b.bp#...#.#....##.....b#...b.#..aa#.b.
-.ba#acabba.#.ba..b##a..p..#.a....#..#..bc#b#.#b..#b..bba..#....cb#b.##a###....
-...b..a#.b#.c.##.....#a..cc#..cc..c#.#...b#.ba.pb.c#.#bp###....b....#......##.
-..#..#.##c....##c#....#b...b#.bb#....#....##b##.#b##.aca.c#...b..ab..cc#..c#..
-.#..#.#.aa#.#...c#.b..bb#.##c.##b.#.#.b..bc...b.####b..a.a..#cc###.c.a##.#cc#.
-#c#b.a###a.ac..#...#ab.b..bc#....c.a#.#c...bc#.#b##.##..b#.#b.##.ca.#.c#.b#.p.
-.#.bb##.........b#..#b#.#.c..#.b#a..#.#b..#..b#..b#c...#b.c...c.b.a.#...c.b#..
-##....b..#a...c..#cc#..b#####bb.#.c.p#..bbb#c.c.#.##c#bb.#.baba.##bc.##cc#.###
-#b.###.c.cc.b#.#.#.a..a....#c.ca#.##.cc.....a.c..#.a##.###..c..#..b..cabp.b...
-##..ba.b..#..#cc.c.#a..b..bb...#..###..cc...###cbb###.#cb.#b.##b##b.#b.b..a.#.
-.c.b#.a#.cbc.#.cc#.##.a..a#.bp#.##.....#..c.a..c.##.##ccb#c.#.#.....#.#.cb#bc.
-..p..p#.a###cc.##....b.#...#.##.#.b##.....#b.c#c#.##.a#.b.b...p..##..b....###.
-.a...b..#.ba.#..#b....#c...b.a..b##.....#..bc.#..a##c.##......#b#a#b.#b.##.ac#
-.##c.b.#a.##c#...b#..a.#a.....#.c..c..b...c.#bb.#c..#..b#.##.#cc..#.#bca####c.
-.c.ca#p.#b.#c.a##.#ba#....##b#..####.#bbc.cc.#.cb#.a.c...b#.....##.#.#c.#...b.
-.#..#.###ba.c#c#.a.a.bb.##cc.cb.#pb....c#a..b###bbac#..ac......##bb.#.cb#.#...
-..#...c.a..c#...#b###.a#.b..##.#a#....caaa.b.b##..baa#b.#c##.b###c.#..#b#..#p.
-#..cb.a##pbb#bb.b#c.#..##bc.##..#.a#..#...cc.#.cc#....b###..cb#..bpc#b.bc#b#.#
-##..ac.##c.....app....##.#c.#b...a.....c##.#cb.#c.bbcb#.#.a#.#..#b..###.#a#b..
-#c.c..a....c...#cc###a##.a.b..b...b#..#.b#bbbc#a###cc.cc.b....#cb...p..bb.c.b.
-..#.pa..##c.##.###a#.bcac#b.#.b#b..ba...##.#####c##..c..c.##...cb...cb#c.#c#..
-.ca#.b##b..c..a.b#..aab..#bc.ac...#bbb#.a#c##b#..#...#.ac#c....#.#.#b#c###c#..
-#c#b.cb...a#.#..c..#cc.#..#b.#...#bb.bca..#..#b.#.#.c.###..#.c#..a.#c..b##a..#
-#bb#b....c####b.##.ca.cb#.b......a.#c.cb.###..#.#cb.baaa.###cbc.#cb#..##.#.#b.
-.#cc...bcbb.##a##b..ccba.b..c#.#..#.c#..p....ca.b.c.bacc....#.c.c#cc..ba#..c..
-.##..#.#.###..###...#.#..#.......#.#......##.#...##...#...#.......#...###.....
-23
-54 23 67 6
-5 20 58 76
-45 64 18 17
-32 56 40 33
-3 13 71 17
-55 47 14 2
-61 72 50 59
-72 68 24 23
-3 2 31 64
-6 51 53 43
-64 62 44 55
-26 3 40 52
-68 33 60 36
-69 76 3 27
-55 55 45 34
-70 9 7 24
-9 65 41 18
-46 27 26 61
-33 43 48 17
-53 17 77 40
-64 2 63 29
-70 66 71 16
-73 4 64 5
+151
+83 61
+.##...WWW.W#..##.WW.W.#.W##..#W.WW#..W#.#WW#W#..W###WW#WW.W.W
+.aca.c.c#.bcb#a...ac..#bba#.ccbW##ccba..bc#ccb..a..c#.#b...#.
+...Wabcb..##..c#c#b.c.W.#aa.W.#.#c.cp#..bcc#bW.b.p...c..a.#..
+.a#.bb#.#..#b#.b.W....###.#pc..c..b.Wp.W....cbb#Wc####c####..
+.a#..W..c##.cc.##a.bbpaaba.#.#cb...b#ba#c.#..c#.#c#..c..##W..
+#.b#.b#WW#.Wc#..WW#.b#....#cc.b.b###c#.....#p..#a.pa.#Wa##.bW
+##.bb#.W#c.#c.cWa#W..#ca....##.b##b.#..#.#...b.#W#...b###c#c.
+Wb#c..b.#bW.#.c.b..a.#c.b.ba.##..bap.bbcWb#.bWc#cb#c.#..a.a.W
+#.b..#.#bb#b...bW.b#.#Wb#cW#.#W#bW.##....#c#..#..#a#bW#c.#.##
+#.#.#cbc#cWb###a.#cbb..#.#pW#..a#.b.b.ac##.a..bbc.b#c.#.W.#.#
+..#..##a#..W..##.c#b.#.bba.pc.cW##Wc.cacbW.c.bac.cab#cc#b#..#
+.Wab......#W##b.cp.##.W.c.#b###....b...bb.c.#.c#.b##...#ac..#
+WWc#.a..cb.#a#.b###a.#b#...##.W.#c##.#.#.ac##.W##b..a##..#.bW
+WbWbcc#.a..#..#c#c#b..a.c...##ac##Wc#.b#.#.bb#c.###..ac.##.WW
+Wca..#.b##..#...W.##.ca#..#b.##.Wa.Wc.#######bW#.b##..c#bbba.
+##..#.#W..##b.#..#W..##..#b#.b##...a.##.#..bc.####bbWWba#..#W
+WWWa##bbb.#aa#W#...ccb.Waa..c#c#...###.pb..#.b##c#....#.c..c#
+Wcb#.#.cbc.#a..#Wc#a##a.bcc.ac#b..##..#cc#.#bab.c#..a..c#c.##
+W#.cc#.b..b#.c.c.W.#b#ba.....#.a...Wbb#..W#a.#.c#b..b#.ca.###
+W.a..#b.a.b#Wb#Wa..b..#c.#.#c.cacc...c..##b#.#.c##aW##b#.a#.W
+.##..#.#b.#..a.WW.b.b###.#bb#.c#W.#.cWcWW.....W.b##.###...#a#
+W..#.#Wcbc....a#b..#.#.#.bW#.bb###.c.##WWW.b...#.bbc...#.....
+#ccb.a#c..##b...c##a#####.##.#.#.ac...##.b#c...c#...cccc.cb..
+#.b...##b.###cWbb.c.Wc#b..bcWba.#ac#b.#a.b..b#.c..Wccc.#####.
+.Wcb..abb#.bba..bW.bcc.cW#.c.....##.#..cW..#.b#accc.b.#W#c##W
+W.#bb.p..#bW#a#.bc.c..##c#bc#cb...ca.b.#a#cb.##ccb.#.apbaW#WW
+W.#aaa.W.b#c#W##bb###..#c.a..b#.#bb##.##c...#c####.#.a...#c..
+WW.a#.p.c#...cb.#b.c.abcWbcb#W.#c#b.pa##.#..WWbcbbb.bc#c#..#W
+.bp#...#.a..#c#.pb.b.cb.c#.#b#.c.##cWbW.#.Wa#.#b.Wccccb..bb..
+Wb.bc#..#c#b#..#c#c..WW#b.#.ba.#.b#..ccW..W####.b#.##.#.##..#
+#.c.a.bc#..cba#.a.cbcb..W..#Wbbb#a.b#p.bb#####..##.b.pa#..cW#
+...##c..##acc#.b#.#ccc#....#b.#b..........#..#.b.c.#.a#.a.a..
+#.a#b....ca.#.##.#...ab.##.cc.c.c#....a..##..##abc#.#..a#.#.#
+.#.###.bc##.#.##.#b.b##a...b..b.bbcp#bc.#a..#p#.#...##.c.#...
+.#.aba##a.p.b.#.#.........c.bac.a.cc#.#..#....a..c#.a##.a##.#
+..##ba.b#.##.#a##...#.b##a#acc.b...#...#..##.##c#a..b#.#.....
+..#.c##....b..#..c#.##.b.#b.a.a#ca..##...ca#.c..b#c#.##...b##
+.....#.c##.c.c.bc.c.c.##....ba.b#..b.#bca#bb..#.#c.cc.....#.#
+..b#.#b#.#.#..#b....#.c..#a.aa.c#b.b#c..#ccc.ccca.#..###..#a#
+.#a#.a#..bcb.#.#c.bcc...c#.b.#a.#ca.#ccc.a.##...b.#ab.b...#..
+.#.#b#c....#####cbcc#.ba...#...c...#.bbc#b.b..#.#.#....b#.c#.
+...a...c..b..bc.c.c.a..b...b..H.....ac.....accc.#b#...##..cc.
+.###c..aa#c.###a#...#..#.a.cc..c.#.bp#cb#.....c..b#cb.b.b.##.
+#c#.##.#ab.....cb#bb......pac..#b#b.#.#b#.#..b#.##cb...#...b.
+.#b#.#.c##..cca.##cp.....c.#..##..pc....#...a.#.....##..ba##.
+......cap.#....c#..#.bb#.c....#.....#..####bc##abc..###..#.#.
+..c#.a#...c#ac.bc.###.a.b..##.#b##.c.##b.b#c#...b##c.p.c..c##
+.#.b..b#b...b.b....cc...#..abc.#c#.#..#.b.c.cb.c.bcc#..c.####
+#..#....b..#..c..c.bcbca#abb.#.#..c###a#ca#b#.cca.#.bc##b..a.
+....c#b..#......a#bbc.#.a##.##.c.c..#...cpc.c#..#c#.##b..ac.#
+..b.a#a........#c.#a#c.#..#.b#.cb#.#b#..b..c#.b.#.c....#.#cc.
+.c..b.#ab...b#a#b##c..b#....c#...#cc.c.#a#b..a....##.#..#..#.
+..c..b#b.a.cbb.c.#.##..#......cc#...c.b..cc..a....#b#.bb.#b..
+#..#b#..#a..bc.b.a.###c.##.p.##.#abb.##.a...#.#..#..c#.#..##.
+#.....#bb#.b...#.###.b#.c..c.###aca.a#cbb##c#b#b##.##a##cc.a#
+.####..bba.pc.a..a#c..a#c..ba#.a...c.c.##a...cacc.#..c.c#.c#.
+...##...#c##.a.bab#a.#..bp#..###c#b..ac.....###...#..c..#b##.
+.#..cb.#bccc....#..c.#.......c#a..##c#c#b.c.cacb..c##.c.c#...
+.##cc.bc###..#..b.bc.a...a#c#.##b.p.....#.a....pb..#.##..##.#
+.##....bab...c.cbcab.####c##b#c#..bpbbb#.b..#..##ab###.#p####
+.c..#b#..#bbb#.c.....#bbb.pbb#..a..a#..ca##.#....#.#bc...cbb.
+##.#...b.#ac...ccb..#.#a#.......bc#.###c..ab...#..b#..##p##c.
+.b#.#...c#c.#c..c...a#.....b.#..#c...a#..#####.bcb##.bac..b..
+..c..c..bbcc#..#.....##.#...ac#.a....a.a...#ca.cc#c.b..##bb#.
+.##.c.bc#c.c#b..cb.ca#c..a..#cc....#..#.#....#.#..#####bba...
+.b..##cbc.#c..a.c..c#..c#.cb.c#c##b#a...b#.b#......b#a.ba.#.#
+.#.c#cb#..####.cb..#...#b.c#..#c.##..#.##.b.b..#.b.a...#acb#.
+.b##.#c.cb.#...###.b...c#b.#..#c.#...a.#ca#b..#c####b#ac.#.#.
+..bb.c...p###.b.....###.bc.bb.##a...a....ab.bb#b...b...cc#..#
+..ac.#.#c...a.##cc....c#c.bb.bbc.##.c.b#..ca.......a.cc.#....
+#.#.c#.c#....bc###a.###.c.##b#c.cc#.ba#a##c.#.b#.##...bc###b.
+.#.b.#.#c#....bcba.......#bc#.b#.###.#.c.#b.bc#c....#b.cc...#
+##.c##a.##..b..b.b#.#..c#.##..###.ccaa..#b#ac..c.....##..##..
+.##pcb#.c##acc.#b#..accp..b.c..b##ac.c.#c#...caba.#.b.b#.#ac.
+#bcc.b.a.#abc.#.#.....c.#.c.......b##....#..c#.bb.b#.#...#b#.
+.##c.b..#c...c.#b##..#.a...c#ac...##..cp.c.#..#.b#.a.#ab##.#.
+.b.#b#c#cc#a.bc###.p.cb....b#c.a.#....#..b..#c##..c.ab...c.##
+.##b.c.#.b#b..#..b.#.a...b#c#p.##.a#.cc.b###...#...#b#b.c....
+.#.#bc.aa..#....###..###.###a.p###cb..abbabab.###c.#.#..c....
+.a#..bcb.#b..#.##...a#bbc.a.#aa.b##b..a..#...p#.c..##.b#.bc.#
+#.b.b#...##.ba.#bb.#a......#.c#...c#.#c.c##b.c.bc##.bb#.#p...
+.#.b.#.#.....#bc#.c#cbcb..b#bb...##.a#cbc..aa.##.#c.c.#.#.#.#
+.##...#.##.#.....#....#.##............##.......#.####....#...
+24
+33 35 25 54
+25 6 5 44
+80 57 27 6
+49 41 56 25
+2 36 73 3
+44 34 30 37
+34 10 3 37
+60 26 45 8
+75 39 10 27
+9 26 59 35
+59 56 46 53
+43 26 42 36
+11 17 3 27
+28 16 27 36
+2 49 58 34
+77 29 79 45
+30 53 44 19
+33 45 55 11
+16 39 68 9
+73 23 78 30
+4 21 53 27
+61 56 7 35
+76 19 28 2
+5 50 58 47
