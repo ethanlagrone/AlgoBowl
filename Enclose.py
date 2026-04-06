@@ -15,6 +15,7 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     So, we run dijkstras to all the walls and find the node that could get us walls back, remove the walls that are now isolated, 
     place the new one,a nd then run recursive again with walls = however many walls we now have
     """
+    #Lowkey might be unusable but Im not ready to give it up lmfao
     startNode = ("start", -1, -1, 0)
     allPaths = []
     nodeAppearence = dict()
@@ -77,6 +78,8 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
 
 
 def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
+    #pretty sure this is optimal not taking into account bees and given enough walls
+    #another strategy will be needed to help this increase the number of exits covered by each wall if this doesn't solve
     exitNode = ("exit", -1, -1, 0)
     startNode = ("start", -1, -1, 0)
     grassNodes = []
