@@ -3,7 +3,10 @@
 
 # i believe all of the bees that this code places should be there no matter what, it's just a question of whether we should add more
 
-board_size = 97
+n = 49
+board_size = 2 * n - 1
+wall_count = 4 * 49 - 4
+
 center = int(board_size / 2)
 grid = [['.' for _ in range(board_size)] for _ in range(board_size)]
 
@@ -26,11 +29,17 @@ for i in range(start_sides, center):
     grid[i][center - i + 1] = 'b'
     grid[i][i - center - 2] = 'b'
 
-# insert center bees + horse
+# insert center bees + horse + trivial walls
 grid[center][1] = 'b'
 grid[center][board_size - 2] = 'b'
+
 grid[center][center] = 'H'
 
+grid[center - 1][center] = 'W'
+grid[center][center - 1] = 'W'
+grid[center][center + 1] = 'W'
+grid[center + 1][center] = 'W'
+ 
 # insert second half of side bees
 for i in range(center + 1, stop_sides):
     grid[i][i - center + 1] = 'b'
@@ -42,5 +51,8 @@ for i in range(start_bottom, board_size - 1):
     grid[i][center - 2 - i] = 'b'
 
 with open("TeamInput.txt", "w") as f:
+    f.write(f'{wall_count}\n')
+    f.write(f'{board_size} {board_size}\n')
     for row in grid:
         f.write(''.join(row) + "\n")
+    f.write("0")
