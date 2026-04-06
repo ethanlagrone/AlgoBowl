@@ -8,99 +8,6 @@ import random
 Honestly open to scraping this now :(
 """
 
-def inchWallsIn(maze, wallCount, portalPairCoords, walls, horseCoords):
-    """
-    New and better idea I think Move furthest wall along path of grass nodes with degree of 2 closer, 
-    and if you cant access a wall then you can remove it and rerun recursiveHorse()
-    """
-    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
-    freedWalls = 0
-    exitNode = ("exit", -1, -1, 0)
-    startNode = ("start", -1, -1, 0)
-
-    
-    
-    walls = walls-freedWalls
-    if(freedWalls > 0):
-        try:
-            path = nx.dijkstra_path(G, startNode, exitNode)
-            return recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
-        except nx.NetworkXNoPath:
-            return maze, freedWalls, [] 
-
-    return 0
-
-
-
-
-def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
-    """
-    Old idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
-    So, we run dijkstras to all the walls and find the node that could get us walls back, remove the walls that are now isolated, 
-    place the new one,a nd then run recursive again with walls = however many walls we now have
-    """
-    #Lowkey might be unusable but Im not ready to give it up lmfao
-    startNode = ("start", -1, -1, 0)
-    allPaths = []
-    nodeAppearence = dict()
-    exitNode = ("exit", -1, -1, 0)
-    freedWalls = 0
-
-    G = CreateGraph.createWallGraph(wallCount, maze, portalPairCoords)
-    for i,j in wallCords:
-        wallExit = ("wall",i,j,0)
-        try:
-            path = nx.dijkstra_path(G, startNode, wallExit)
-            allPaths.append(path)
-        except nx.NetworkXNoPath:
-            pass
-    
-    for array in allPaths:
-        print(array)
-        for node in array:
-            element,i,j,val = node
-            if(element == '.'):
-                if(node not in nodeAppearence):
-                    nodeAppearence[node] = []
-                nodeAppearence[node].append(array)
-
-    mostAppearingNode = None
-    largestDistance = 0
-    for node, paths in nodeAppearence.items():
-        print(node, paths)
-        element,i,j,val = node
-        distance = Helper.getDistance(horseCoords,(i,j))
-        degree = G.degree[node]
-        if 0 < degree <= 2 and distance >= largestDistance and len(paths) >= 2:
-            mostAppearingNode = node
-            wallsCovered = paths
-
-    if mostAppearingNode is not None:
-        element, i, j, val = mostAppearingNode
-        redundantWalls = set()
-        for path in wallsCovered:
-            for k in range(len(path)):
-                pathElement, pi, pj, pval = path[k]
-                if pathElement == 'W':
-                    redundantWalls.add((pi, pj))
-
-        for i, j in redundantWalls:
-            if freedWalls < len(wallsCovered) - 1:
-                maze[i][j] = '.'
-                freedWalls += 1
-        maze[i][j] = 'W'
-
-    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
-    if(Validater.horseCanEscape(G)):
-        try:
-            path = nx.dijkstra_path(G, startNode, exitNode)
-            return recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
-        except nx.NetworkXNoPath:
-            return maze, freedWalls, [] 
-
-    return maze, 0, []
-
-
 def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
     #pretty sure this is optimal not taking into account bees and given enough walls
     #another strategy will be needed to help this increase the number of exits covered by each wall if this doesn't solve
@@ -108,7 +15,7 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
     startNode = ("start", -1, -1, 0)
     grassNodes = []
     possibleWallsOnPath = []
-    distance = float('-inf')
+    distance = float('inf')
     furthestNode = None
     for node in path:
         element,i,j,value = node
@@ -136,7 +43,7 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
     
     for i,j in possibleWallsOnPath:
         nextDistance = Helper.getDistance(horseCoords, (i,j))
-        if(nextDistance > distance):
+        if(nextDistance < distance):
             distance = nextDistance
             furthestNode = (i,j)
 
@@ -203,36 +110,13 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
 
+        #This gives a minimum solution that should work for everything?
         path = nx.dijkstra_path(G, startNode, exitNode)
         maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords)
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
-
-        #"""
-        #Will be this but need to implement optimize
-        wallCoords = []
-        for i in range(len(maze)):
-            for j in range(len(maze[i])):
-                current = maze[i][j]
-                if(current == 'W'):
-                    wallCoords.append((i,j))
-
-        maxAttempts = wallCount
-        attempts = 0
-        while(Validater.horseCanEscape(G)):
-            if(attempts > maxAttempts):
-                break
-            result = optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords)
-            maze, walls, path = result
-            G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
-            wallCoords = []
-            for i in range(len(maze)):
-                for j in range(len(maze[i])):
-                    current = maze[i][j]
-                    if(current == 'W'):
-                        wallCoords.append((i,j))
-            attempts += 1
-        #"""
+        """
+        Here we need to give a mze but expand the graph as much as possible"""
 
         if(not Validater.horseCanEscape(G)):
             return maze 
