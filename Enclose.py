@@ -27,6 +27,7 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     nodeAppearence = dict()
     exitNode = ("exit", -1, -1, 0)
     freedWalls = 0
+    redundantWalls = []
 
     G = CreateGraph.createWalledGraph(wallCount, maze, portalPairCoords)
     for i,j in wallCords:
@@ -35,10 +36,17 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
             path = nx.dijkstra_path(G, startNode, wallExit)
             allPaths.append(path)
         except nx.NetworkXNoPath:
+            print("Can't reach this wall W," + str(i) + ", " + str(j))
+            redundantWalls.append((i,j))
             pass
 
+    for i,j in redundantWalls:
+        maze[i][j] = '.'
+        freedWalls += 1
+
+    G = CreateGraph.createWalledGraph(wallCount, maze, portalPairCoords)
+    
     for array in allPaths:
-        print(array)
         for node in array:
             element,i,j,val = node
             if(element == '.'):
@@ -49,7 +57,7 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     mostAppearingNode = None
     largestDistance = 0
     for node, paths in nodeAppearence.items():
-        print(node, paths)
+        #print(node, paths)
         element,i,j,val = node
         distance = Helper.getDistance(horseCoords,(i,j))
         degree = G.degree[node]
@@ -76,7 +84,7 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     if(Validater.horseCanEscape(G)):
         try:
             path = nx.dijkstra_path(G, startNode, exitNode)
-            return recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
+            return recursiveEncloseHorse(G, maze, wallCount-freedWalls, path, horseCoords, wallCount, portalPairCoords)
         except nx.NetworkXNoPath:
             return maze, freedWalls, [] 
 
