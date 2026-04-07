@@ -1,5 +1,8 @@
 #Throw random helper functions in here
 import math
+import networkx as nx
+import CreateGraph
+
 def isOnEdge(i,j,maze):
     if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
         return True
@@ -55,7 +58,7 @@ def countWalls(maze):
 
     return count
 
-def getWallCoords(maze):
+def getWallCords(maze):
     wallCoords = []
     for i in range(len(maze)):
         for j in range(len(maze[i])):
@@ -64,3 +67,19 @@ def getWallCoords(maze):
                 wallCoords.append((i,j))
 
     return wallCoords
+
+def getRedundantWalls(maze, wallCount, portalPairCoords):
+    startNode = ("start", -1, -1, 0)
+    wallCords = getWallCords(maze)
+    G = CreateGraph.createWalledGraph(wallCount,maze,portalPairCoords)
+    redundant = []
+    for i,j in wallCords:
+        wallExit = ("wall",i,j,0)
+        try:
+            path = nx.dijkstra_path(G, startNode, wallExit)
+        except nx.NetworkXNoPath:
+            print("Can't reach this wall W," + str(i) + ", " + str(j))
+            redundant.append((i,j))
+            pass
+
+    return redundant

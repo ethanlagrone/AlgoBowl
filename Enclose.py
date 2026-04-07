@@ -16,6 +16,11 @@ def expand():
     """
     return 0
 
+def testIfWallCreatesRedundancies():
+    #Given a wall, test to see if it may create redundancies
+    return 0
+
+
 def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     """
     Old idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
@@ -29,66 +34,62 @@ def optimize(maze, wallCords, wallCount, portalPairCoords, horseCoords):
     freedWalls = 0
     redundantWalls = []
 
-    G = CreateGraph.createWalledGraph(wallCount, maze, portalPairCoords)
-    for i,j in wallCords:
-        wallExit = ("wall",i,j,0)
+
+    #Check if after running recursiveEncloseHorse if there are redundant walls, if there are, update ir
+    redundantWalls = Helper.getRedundantWalls(maze, wallCount, portalPairCoords)
+    if redundantWalls is not None:
+        for i,j in redundantWalls:
+            maze[i][j] = '.'
+            freedWalls += 1
+        G=CreateGraph.createGraph(wallCount,maze, portalPairCoords)
         try:
-            path = nx.dijkstra_path(G, startNode, wallExit)
-            allPaths.append(path)
+            path = nx.dijkstra_path(G, startNode, exitNode)
         except nx.NetworkXNoPath:
-            print("Can't reach this wall W," + str(i) + ", " + str(j))
-            redundantWalls.append((i,j))
-            pass
+            return maze, freedWalls, []
+        maze, freedWalls, path = recursiveEncloseHorse(G, maze, freedWalls, path, horseCoords, wallCount, portalPairCoords)
+        G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+        if(not Validater.horseCanEscape(G)):
+            return maze, 0, []
 
-    for i,j in redundantWalls:
-        maze[i][j] = '.'
-        freedWalls += 1
 
-    G = CreateGraph.createWalledGraph(wallCount, maze, portalPairCoords)
-    
-    for array in allPaths:
-        for node in array:
-            element,i,j,val = node
+
+        
+
+
+
+    #AFTER THIS WE NEED TO FIND A NODE THAT IS FURTHEST OF MIN DEGREE ON THE PATH TO OTHER WALLS
+
+    #Find most frequently appearing nodes on the path
+    nodeFrequencey = dict()
+    for path in allPaths:
+        for node in path:
+            element, i,j, value = node
             if(element == '.'):
-                if(node not in nodeAppearence):
-                    nodeAppearence[node] = []
-                nodeAppearence[node].append(array)
-
-    mostAppearingNode = None
-    largestDistance = 0
-    for node, paths in nodeAppearence.items():
-        #print(node, paths)
-        element,i,j,val = node
-        distance = Helper.getDistance(horseCoords,(i,j))
-        degree = G.degree[node]
-        if 0 < degree <= 2 and distance >= largestDistance and len(paths) >= 2:
-            mostAppearingNode = node
-            wallsCovered = paths
-
-    if mostAppearingNode is not None:
-        element, i, j, val = mostAppearingNode
-        redundantWalls = set()
-        for path in wallsCovered:
-            for k in range(len(path)):
-                pathElement, pi, pj, pval = path[k]
-                if pathElement == 'W':
-                    redundantWalls.add((pi, pj))
-
-        for i, j in redundantWalls:
-            if freedWalls < len(wallsCovered) - 1:
-                maze[i][j] = '.'
-                freedWalls += 1
-        maze[i][j] = 'W'
-
+                if(node in nodeFrequencey):
+                    nodeFrequencey[node] += 1
+                else:
+                    nodeFrequencey[node] = 1
+    
+    #Sort nodes by value and then go through them finding a node of degree 1 or 2
+    #Set that as temp wall, see if any walls become redundant, then check again untill you find a spot that can make walls redundant
     G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
+    sortedNodeFrequency = dict(sorted(nodeFrequencey.items(), key=lambda item: item[1]))
+    for node, count in sortedNodeFrequency:
+        degree = G.degree[node]
+        if(degree <= 2):
+            #testIfWallCreatesRedundancies()
+            return 0
+
+
+    
     if(Validater.horseCanEscape(G)):
         try:
             path = nx.dijkstra_path(G, startNode, exitNode)
             return recursiveEncloseHorse(G, maze, wallCount-freedWalls, path, horseCoords, wallCount, portalPairCoords)
         except nx.NetworkXNoPath:
             return maze, freedWalls, [] 
-
-    return maze, 0, []
+    else:
+        return maze, 0, []
 
 
 def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords):
@@ -106,7 +107,7 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
             grassNodes.append(node)
 
     #base case
-    if(walls == wallCount):
+    if(walls == 0):
         return maze, walls, grassNodes
     
     minDegree = float('inf')
@@ -131,11 +132,11 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
             furthestNode = (i,j)
 
     if furthestNode is None:
-        return maze, walls+1, grassNodes
+        return maze, walls-1, grassNodes
     x,y = furthestNode
     node = (maze[x][y],x,y,Helper.getValue(maze[x][y]))
     maze[x][y] = 'W'
-    walls += 1
+    walls -= 1
     grassNodes.remove(node)
     G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
     try:
@@ -193,7 +194,6 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
 
 
-        #This gives a minimum solution that should work for everything?
         path = nx.dijkstra_path(G, startNode, exitNode)
         maze, walls, grassNodes = recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPairCoords)
         G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
