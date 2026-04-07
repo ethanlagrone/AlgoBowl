@@ -151,6 +151,7 @@ def createWalledGraph(wallCount, maze, portalPairCoords):
 
             if(mainElement == 'W'):
                 wallExit = ("wall",i,j,0)
+                G.add_node(wallExit)
                 G.add_edge(mainNode, wallExit)
                 #North edge, one way into walls
                 if(i != 0):

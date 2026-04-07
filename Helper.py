@@ -54,3 +54,13 @@ def countWalls(maze):
                 count += 1
 
     return count
+
+def getWallCoords(maze):
+    wallCoords = []
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            element = maze[i][j]
+            if(element == 'W'):
+                wallCoords.append((i,j))
+
+    return wallCoords
