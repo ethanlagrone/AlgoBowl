@@ -29,7 +29,7 @@ def testIfWallCreatesRedundancies(wallCount, wall, maze, portalPairCoords):
     return None
 
 
-def optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords):
+def optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords, bannedWalls):
     print("Running optimize")
     """
     Old idea, the recursiveEncloseHorse is greedy but doesn't always have the needed wall count
@@ -62,8 +62,6 @@ def optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords):
             return maze, 0, []
     redundantWalls = []
 
-
-    G = CreateGraph.createWalledGraph(wallCount, maze, portalPairCoords)
         
 
     allPaths = Helper.getWallPaths(maze, wallCount, portalPairCoords)
@@ -91,15 +89,18 @@ def optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords):
 
     for node, count in sortedNodeFrequency.items():
         degree = G.degree[node]
-        if degree <= 2:
+        if degree <= 3 and degree >= 1:
             element, i, j, val = node
             wall = (i, j)
+            if wall in bannedWalls:
+                continue
 
             redundantWalls = testIfWallCreatesRedundancies(wallCount, wall, maze, portalPairCoords)
 
             if redundantWalls and len(redundantWalls) >= 1:
                 chosenWall = wall
                 chosenRedundantWalls = redundantWalls
+                bannedWalls.add(wall)
                 break
 
     removedWalls = 0
@@ -176,8 +177,8 @@ def recursiveEncloseHorse(G, maze, walls, path, horseCoords, wallCount, portalPa
     x,y = furthestNode
     node = (maze[x][y],x,y,Helper.getValue(maze[x][y]))
     maze[x][y] = 'W'
+    G.remove_node(node)
     walls -= 1
-    G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
     try:
         path = nx.dijkstra_path(G, startNode, exitNode)
     except nx.NetworkXNoPath:
@@ -244,10 +245,12 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         attempts = 0
         maxAttempts = wallCount
         wallCoords = Helper.getWallCoords(maze)
+
+        bannedWalls = set()
         while(Validater.horseCanEscape(G)):
             if(attempts > maxAttempts):
                 break
-            result = optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords)
+            result = optimize(maze, wallCoords, wallCount, portalPairCoords, horseCoords, bannedWalls)
             maze, walls, path = result
             G = CreateGraph.createGraph(wallCount, maze, portalPairCoords)
             wallCoords = Helper.getWallCoords(maze)
