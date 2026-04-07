@@ -101,7 +101,7 @@ def createGraph(wallCount, maze, portalPairCoords):
 
 
 def createWalledGraph(wallCount, maze, portalPairCoords):
-
+    #THIS WILL BE  A DIRECTED GRAPH AS WHEN THEY ACCESS WALLS THEY CAN'T GO BACK
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
 
@@ -152,7 +152,38 @@ def createWalledGraph(wallCount, maze, portalPairCoords):
             if(mainElement == 'W'):
                 wallExit = ("wall",i,j,0)
                 G.add_edge(mainNode, wallExit)
-                continue
+                #North edge, one way into walls
+                if(i != 0):
+                    current = maze[i-1][j]
+                    if(current in connectable):
+                        value = getValue(current)
+                        currentNode = (current, i-1,j, value)
+                        G.add_edge(mainNode, currentNode)
+
+                #south edge
+                if(i+1 != len(maze)):
+                    current = maze[i+1][j]
+                    if(current in connectable):
+                        value = getValue(current)
+                        currentNode = (current, i+1,j, value)
+                        G.add_edge(mainNode, currentNode)
+
+                #east edge
+                if(j+1 != len(maze[i])):
+                    current = maze[i][j+1]
+                    if(current in connectable):
+                        value = getValue(current)
+                        currentNode = (current, i,j+1, value)
+                        G.add_edge(mainNode, currentNode)
+                
+                #west edge
+                if(j != 0):
+                    current = maze[i][j-1]
+                    if(current in connectable):
+                        value = getValue(current)
+                        currentNode = (current, i,j-1, value)
+                        G.add_edge(mainNode, currentNode)
+
 
 
             #north edge
