@@ -58,7 +58,7 @@ def countWalls(maze):
 
     return count
 
-def getWallCords(maze):
+def getWallCoords(maze):
     wallCoords = []
     for i in range(len(maze)):
         for j in range(len(maze[i])):
@@ -70,10 +70,10 @@ def getWallCords(maze):
 
 def getRedundantWalls(maze, wallCount, portalPairCoords):
     startNode = ("start", -1, -1, 0)
-    wallCords = getWallCords(maze)
+    wallCoords = getWallCoords(maze)
     G = CreateGraph.createWalledGraph(wallCount,maze,portalPairCoords)
     redundant = []
-    for i,j in wallCords:
+    for i,j in wallCoords:
         wallExit = ("wall",i,j,0)
         try:
             path = nx.dijkstra_path(G, startNode, wallExit)
@@ -83,3 +83,18 @@ def getRedundantWalls(maze, wallCount, portalPairCoords):
             pass
 
     return redundant
+
+def getWallPaths(maze, wallCount, portalPairCoords):
+    startNode = ("start", -1, -1, 0)
+    wallCoords = getWallCoords(maze)
+    G = CreateGraph.createWalledGraph(wallCount,maze,portalPairCoords)
+    allPaths = []
+    for i,j in wallCoords:
+        wallExit = ("wall",i,j,0)
+        try:
+            path = nx.dijkstra_path(G, startNode, wallExit)
+            allPaths.append(path)
+        except nx.NetworkXNoPath:
+            pass
+
+    return allPaths
