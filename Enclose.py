@@ -11,6 +11,7 @@ def getNodeDistancesEromExit(G):
     return lengths
 
 def encloseHorse(maze, wallCount, portalPairCoords, offSet):
+    #Clear walls and create graph 
     maze = Helper.clearWalls(maze)
     G = CreateGraph.createGraph(maze, portalPairCoords)
     distances = getNodeDistancesEromExit(G)
@@ -19,36 +20,43 @@ def encloseHorse(maze, wallCount, portalPairCoords, offSet):
     startNode = ("start", -1, -1, 0)
     capacityGraph = nx.DiGraph()
 
-    id_to_tuple = {}
+    idToTuple = {}
 
+    #Creating a directed flow graph
     for node in G.nodes():
-        if node == startNode or node == exitNode:
+        if(node == startNode or node == exitNode):
             element = node[0]
-            capacityGraph.add_edge(f"{node}_in", f"{node}_out", capacity=float('inf'))
+            #infinite flow for start and end
+            capacityGraph.add_edge(f"{node}In", f"{node}Out", capacity=float('inf'))
+
         else:
             element, i, j, val = node
             if element == '.':
+                #Offset is changed in main, depending on how many walls it gives
                 dist = distances.get(node, 999)
                 nodeCapacity = dist ** offSet  
-                capacityGraph.add_edge(f"{node}_in", f"{node}_out", capacity=nodeCapacity)
-                id_to_tuple[f"{node}_in"] = node # Save the mapping
+                capacityGraph.add_edge(f"{node}In", f"{node}Out", capacity=nodeCapacity)
+                idToTuple[f"{node}In"] = node 
             else:
-                capacityGraph.add_edge(f"{node}_in", f"{node}_out", capacity=float('inf'))
+                capacityGraph.add_edge(f"{node}In", f"{node}Out", capacity=float('inf'))
 
+        #add edges to neighbors
         for neighbor in G.neighbors(node):
-            capacityGraph.add_edge(f"{node}_out", f"{neighbor}_in", capacity=float('inf'))
+            capacityGraph.add_edge(f"{node}Out", f"{neighbor}In", capacity=float('inf'))
 
-    source = f"{startNode}_in"
-    sink = f"{exitNode}_out"
+    source = f"{startNode}In"
+    sink = f"{exitNode}Out"
     
-    cut_value, (reachable, non_reachable) = nx.minimum_cut(capacityGraph, source, sink)
+    #Get choke point
+    cutValue, (reachable, nonReachable) = nx.minimum_cut(capacityGraph, source, sink)
 
+    #Create an array where it gives us tuples of where to place walls(handled in main and Helper)
     wallsToPlace = []
     for u, v in capacityGraph.edges():
-        if u in reachable and v in non_reachable:
-            if "_in" in u and "_out" in v:
-                original_node = id_to_tuple.get(u)
-                if original_node:
-                    wallsToPlace.append((original_node[1], original_node[2]))
+        if u in reachable and v in nonReachable:
+            if "In" in u and "Out" in v:
+                originalNode = idToTuple.get(u)
+                if originalNode:
+                    wallsToPlace.append((originalNode[1], originalNode[2]))
                 
     return wallsToPlace
