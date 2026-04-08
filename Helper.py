@@ -27,6 +27,8 @@ def clearWalls(maze):
             if(element == 'W'):
                 maze[i][j] = '.'
 
+    return maze
+
 
 def getValue(c):
     if c == 'a':
@@ -98,3 +100,10 @@ def getWallPaths(maze, wallCount, portalPairCoords):
             pass
 
     return allPaths
+
+
+def placeWalls(maze, wallsToPlace):
+    for i,j in wallsToPlace:
+        maze[i][j] = 'W'
+
+    return maze

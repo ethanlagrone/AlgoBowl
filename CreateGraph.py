@@ -12,7 +12,7 @@ def getValue(c):
         return 1
 
 
-def createGraph(wallCount, maze, portalPairCoords):
+def createGraph(maze, portalPairCoords):
 
     #all elements in this array are connectable
     connectable = ['.','H','a','b','c','p']
@@ -103,6 +103,8 @@ def addWall(G, wallLocation):
     nodeToRemove = ('.',i,j,1)
     G.remove_node(nodeToRemove)
 
+    return G
+
 
 def removeWallFromGraph(G, wallLocation, maze):
     i,j = wallLocation
@@ -146,6 +148,7 @@ def removeWallFromGraph(G, wallLocation, maze):
     if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
                 G.add_edge(mainNode, exitNode)
 
+    return G
 
 
 

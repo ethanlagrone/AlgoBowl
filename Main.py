@@ -27,22 +27,32 @@ def standard():
         WallCount, Maze, PortalPairCoords = inputValidity
 
     #create graph from input
-    graph = CreateGraph.createGraph(WallCount,Maze,PortalPairCoords)
+    graph = CreateGraph.createGraph(Maze,PortalPairCoords)
 
     #check that input is valid(horse needs to be able to reach the outside)
-    if(Validater.horseCanEscape(graph)):
+    """if(Validater.horseCanEscape(graph)):
         print("Horse not trapped")
         exit(1)
-    
+    """
     #Craft our solution
     #startNode = ('start',-1,-1)
     #returning a maze
-    ourSolution = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords)
+    offSet = 2
+    while(True):
+        wallsToPlace = Enclose.encloseHorse(Maze, WallCount,PortalPairCoords, offSet)
+        #print(wallsToPlace)
+        #print(len(wallsToPlace), WallCount)
+        if(len(wallsToPlace) > WallCount):
+            offSet -= .1
+        else:
+            break
+    ourSolution = Helper.placeWalls(Maze, wallsToPlace)
+    #Helper.printMaze(ourSolution)
     if(not OutputParser.outputParser(Maze, ourSolution, WallCount)):
         print("Output and input maze don't match")
         exit(1)
     #check that solution is valid
-    validation = Validater.score(CreateGraph.createGraph(WallCount, ourSolution, PortalPairCoords))
+    validation = Validater.score(CreateGraph.createGraph(ourSolution, PortalPairCoords))
 
     
     #print score and our graph
