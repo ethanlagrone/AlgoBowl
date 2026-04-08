@@ -98,6 +98,56 @@ def createGraph(wallCount, maze, portalPairCoords):
     return G
 
 
+def addWall(G, wallLocation):
+    i,j = wallLocation
+    nodeToRemove = ('.',i,j,1)
+    G.remove_node(nodeToRemove)
+
+
+def removeWallFromGraph(G, wallLocation, maze):
+    i,j = wallLocation
+    mainNode = ('.',i,j,1)
+    connectable = ['.','H','a','b','c','p']
+    exitNode = ("exit", -1, -1, 0)
+
+    G.add_node(mainNode)
+
+    if(i != 0):
+        current = maze[i-1][j]
+        if(current in connectable):
+            value = getValue(current)
+            currentNode = (current, i-1,j, value)
+            G.add_edge(mainNode, currentNode)
+
+    #south edge
+    if(i+1 != len(maze)):
+        current = maze[i+1][j]
+        if(current in connectable):
+            value = getValue(current)
+            currentNode = (current, i+1,j, value)
+            G.add_edge(mainNode, currentNode)
+
+    #east edge
+    if(j+1 != len(maze[i])):
+        current = maze[i][j+1]
+        if(current in connectable):
+            value = getValue(current)
+            currentNode = (current, i,j+1, value)
+            G.add_edge(mainNode, currentNode)
+    
+    #west edge
+    if(j != 0):
+        current = maze[i][j-1]
+        if(current in connectable):
+            value = getValue(current)
+            currentNode = (current, i,j-1, value)
+            G.add_edge(mainNode, currentNode)
+
+    if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
+                G.add_edge(mainNode, exitNode)
+
+
+
 
 
 def createWalledGraph(wallCount, maze, portalPairCoords):
@@ -150,8 +200,11 @@ def createWalledGraph(wallCount, maze, portalPairCoords):
                 G.add_edge(startNode, mainNode)
 
             if(mainElement == 'W'):
+                generalWallExit = ("wall",-1,-1,0)
                 wallExit = ("wall",i,j,0)
+                G.add_node(wallExit)
                 G.add_edge(mainNode, wallExit)
+                G.add_edge(wallExit, generalWallExit)
                 #North edge, one way into walls
                 if(i != 0):
                     current = maze[i-1][j]
@@ -225,6 +278,5 @@ def createWalledGraph(wallCount, maze, portalPairCoords):
             #exits
             if(i == 0 or (i == len(maze)-1) or j == 0 or (j ==len(maze[i])-1)):
                 G.add_edge(mainNode, exitNode)
-                G.add_edge(exitNode, mainNode)
-
+        
     return G
