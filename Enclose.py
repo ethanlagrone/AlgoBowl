@@ -87,6 +87,25 @@ def min_cut(maze, wallCount, portalPairCoords):
         flowGraph.add_edge(p2_node_out, p1_node_in, capacity = np.inf)
     
     cut_value, (S_nodes, T_nodes) = nx.minimum_cut(flowGraph, S, T)
+
+    walls_to_add = []
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            current = maze[i][j]
+            if current == '.':
+                node_in = (i, j, "in")
+                node_out = (i, j, "out")
+                if node_in in S_nodes and node_out in T_nodes:
+                    walls_to_add.append((i,j))
+
+    if len(walls_to_add) > wallCount:
+        for (i,j) in initialWalls:
+            maze[i][j] = 'W'
+    else:
+        for (i,j) in walls_to_add:
+            maze[i][j] = 'W'
+    
+    return maze
             
 
 ### OLD SOLUTION BELOW THIS POINT ###
