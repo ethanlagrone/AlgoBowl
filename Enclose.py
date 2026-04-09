@@ -4,36 +4,41 @@ import CreateGraph
 import Validater
 import random
 import numpy as np
+import copy
 
 def encloseHorse(maze, wallCount, portalPairCoords):
+    original_maze = copy.deepcopy(maze)
     max_score = -np.inf
     solution = None
     for x in range(0,12):
+        test_maze = copy.deepcopy(original_maze)
+        for i in range(len(test_maze)):
+            for j in range(len(test_maze[i])):
+                current = test_maze[i][j]
+                if current == 'W':
+                    test_maze[i][j] = '.'
         print(f'starting x = {x}')
+        result = min_cut(original_maze, test_maze, wallCount, portalPairCoords, x)
+        if result is None:
+            continue
         score = 0
-        maze, S_nodes, T_nodes = min_cut(maze, wallCount, portalPairCoords, x)
+        new_maze, S_nodes, T_nodes, walls_used = result
+        if walls_used > wallCount:
+            continue
         print("calculating score")
-        for i in range(len(maze)):
-            for j in range(len(maze[i])):
-                if (i,j,"in") in T_nodes:
-                    score += Helper.getValue(maze[i][j])
+        G = CreateGraph.createGraph(wallCount, new_maze, portalPairCoords)
+        score = Validater.score(G)
+        print(score)
         if score > max_score:
             max_score = score
-            solution = maze
+            solution = new_maze
         print(f'ending x = {x}')
     
-    return maze
+    return solution
 
-def min_cut(maze, wallCount, portalPairCoords, x):
+def min_cut(original_maze, new_maze, wallCount, portalPairCoords, x):
     # get initial wall locations so we can reconstruct input if algorithm fails
     initialWalls = []
-    
-    for i in range(len(maze)):
-        for j in range(len(maze[i])):
-            current = maze[i][j]
-            if current == 'W':
-                initialWalls.append((i,j))
-                maze[i][j] = '.'
     
     # create directed graph for flow network, add source and sink nodes
     # source = outside, sink = enclosure
@@ -44,9 +49,9 @@ def min_cut(maze, wallCount, portalPairCoords, x):
     flowGraph.add_node(T)
 
     ## FIRST LOOP: add all non-water spaces to graph
-    for i in range(len(maze)):
-        for j in range(len(maze[i])):
-            current = maze[i][j]
+    for i in range(len(new_maze)):
+        for j in range(len(new_maze[i])):
+            current = new_maze[i][j]
             
             if current != '#':
                 # all spaces have in and out nodes that will allow the placement of walls to be represented by flow
@@ -67,7 +72,7 @@ def min_cut(maze, wallCount, portalPairCoords, x):
                     flowGraph.add_edge(node_out, T, capacity = -value)
 
                 # spaces that connect to the outside are connected to the source
-                if Helper.isOnEdge(i, j, maze):
+                if Helper.isOnEdge(i, j, new_maze):
                     flowGraph.add_edge(S, node_in, capacity = np.inf)
                 
                 # force horse to be included in the sink nodes, i.e. guarantee it is in the enclosure
@@ -75,19 +80,19 @@ def min_cut(maze, wallCount, portalPairCoords, x):
                     flowGraph.add_edge(node_out, T, capacity = np.inf)
 
     ## SECOND LOOP: add movement edges to all neighboring nodes
-    for i in range(len(maze)):
-        for j in range(len(maze[i])):
+    for i in range(len(new_maze)):
+        for j in range(len(new_maze[i])):
             node_out = (i, j, "out")
-            if i > 0 and maze[i-1][j] != '#':
+            if i > 0 and new_maze[i-1][j] != '#':
                 neighbor_node_in = (i-1, j, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
-            if j < len(maze[i]) - 1 and maze[i][j+1] != '#':
+            if j < len(new_maze[i]) - 1 and new_maze[i][j+1] != '#':
                 neighbor_node_in = (i, j+1, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
-            if i < len(maze) - 1 and maze[i+1][j] != '#':
+            if i < len(new_maze) - 1 and new_maze[i+1][j] != '#':
                 neighbor_node_in = (i+1, j, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
-            if j > 0 and maze[i][j-1] != '#':
+            if j > 0 and new_maze[i][j-1] != '#':
                 neighbor_node_in = (i, j-1, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
 
@@ -108,23 +113,30 @@ def min_cut(maze, wallCount, portalPairCoords, x):
     cut_value, (S_nodes, T_nodes) = nx.minimum_cut(flowGraph, S, T)
 
     walls_to_add = []
-    for i in range(len(maze)):
-        for j in range(len(maze[i])):
-            current = maze[i][j]
+    for i in range(len(new_maze)):
+        for j in range(len(new_maze[i])):
+            current = new_maze[i][j]
             if current == '.':
                 node_in = (i, j, "in")
                 node_out = (i, j, "out")
                 if node_in in S_nodes and node_out in T_nodes:
                     walls_to_add.append((i,j))
 
+    print(len(walls_to_add))
     if len(walls_to_add) > wallCount:
-        for (i,j) in initialWalls:
-            maze[i][j] = 'W'
+        return None
     else:
+        final_maze = copy.deepcopy(original_maze)
+
+        for i in range(len(final_maze)):
+            for j in range(len(final_maze[i])):
+                if final_maze[i][j] == 'W':
+                    final_maze[i][j] = '.'
+
         for (i,j) in walls_to_add:
-            maze[i][j] = 'W'
+            final_maze[i][j] = 'W'
     
-    return maze, S_nodes, T_nodes
+    return final_maze, S_nodes, T_nodes, len(walls_to_add)
             
 
 ### OLD SOLUTION BELOW THIS POINT ###
