@@ -6,6 +6,25 @@ import random
 import numpy as np
 
 def encloseHorse(maze, wallCount, portalPairCoords):
+    max_score = -np.inf
+    solution = None
+    for x in range(0,12):
+        print(f'starting x = {x}')
+        score = 0
+        maze, S_nodes, T_nodes = min_cut(maze, wallCount, portalPairCoords, x)
+        print("calculating score")
+        for i in range(len(maze)):
+            for j in range(len(maze[i])):
+                if (i,j,"in") in T_nodes:
+                    score += Helper.getValue(maze[i][j])
+        if score > max_score:
+            max_score = score
+            solution = maze
+        print(f'ending x = {x}')
+    
+    return maze
+
+def min_cut(maze, wallCount, portalPairCoords, x):
     # get initial wall locations so we can reconstruct input if algorithm fails
     initialWalls = []
     
@@ -37,7 +56,7 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                 flowGraph.add_node(node_out)
 
                 if current == '.':
-                    flowGraph.add_edge(node_in, node_out, capacity = 1)         # capacity of 1 to represent placing one wall on this space
+                    flowGraph.add_edge(node_in, node_out, capacity = 1 + x)         # capacity of 1 to represent placing one wall on this space
                 else:
                     flowGraph.add_edge(node_in, node_out, capacity = np.inf)    # infinite capacity, walls cannot be placed here
                 
@@ -105,7 +124,7 @@ def encloseHorse(maze, wallCount, portalPairCoords):
         for (i,j) in walls_to_add:
             maze[i][j] = 'W'
     
-    return maze
+    return maze, S_nodes, T_nodes
             
 
 ### OLD SOLUTION BELOW THIS POINT ###
