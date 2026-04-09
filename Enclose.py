@@ -5,7 +5,7 @@ import Validater
 import random
 import numpy as np
 
-def min_cut(maze, wallCount, portalPairCoords):
+def encloseHorse(maze, wallCount, portalPairCoords):
     # get initial wall locations so we can reconstruct input if algorithm fails
     initialWalls = []
     
