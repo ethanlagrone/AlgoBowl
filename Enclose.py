@@ -5,7 +5,7 @@ import Validater
 import random
 import numpy as np
 
-def encloseHorse(maze, wallCount, portalPairCoords):
+def min_cut(maze, wallCount, portalPairCoords):
     # get initial wall locations so we can reconstruct input if algorithm fails
     initialWalls = []
     
@@ -16,36 +16,46 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                 initialWalls.append((i,j))
                 maze[i][j] = '.'
     
+    # create directed graph for flow network, add source and sink nodes
+    # source = outside, sink = enclosure
     flowGraph = nx.DiGraph()
     S = "SOURCE"
     T = "SINK"
     flowGraph.add_node(S)
     flowGraph.add_node(T)
 
+    ## FIRST LOOP: add all non-water spaces to graph
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             current = maze[i][j]
+            
             if current != '#':
+                # all spaces have in and out nodes that will allow the placement of walls to be represented by flow
                 node_in = (i, j, "in")
                 node_out = (i, j, "out")
                 flowGraph.add_node(node_in)
                 flowGraph.add_node(node_out)
 
                 if current == '.':
-                    flowGraph.add_edge(node_in, node_out, capacity = 1)
+                    flowGraph.add_edge(node_in, node_out, capacity = 1)         # capacity of 1 to represent placing one wall on this space
                 else:
-                    flowGraph.add_edge(node_in, node_out, capacity = np.inf)
+                    flowGraph.add_edge(node_in, node_out, capacity = np.inf)    # infinite capacity, walls cannot be placed here
                 
                 value = Helper.getValue(current)
-                flowGraph.add_edge(S, node_in, capacity = value)
-                flowGraph.add_edge(node_out, T, capacity = -value)
+                if value > 0:
+                    flowGraph.add_edge(S, node_in, capacity = value)
+                else:
+                    flowGraph.add_edge(node_out, T, capacity = -value)
 
+                # spaces that connect to the outside are connected to the source
                 if Helper.isOnEdge(i, j, maze):
                     flowGraph.add_edge(S, node_in, capacity = np.inf)
                 
+                # force horse to be included in the sink nodes, i.e. guarantee it is in the enclosure
                 if current == 'H':
                     flowGraph.add_edge(node_out, T, capacity = np.inf)
 
+    ## SECOND LOOP: add movement edges to all neighboring nodes
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             node_out = (i, j, "out")
@@ -59,9 +69,10 @@ def encloseHorse(maze, wallCount, portalPairCoords):
                 neighbor_node_in = (i+1, j, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
             if j > 0 and maze[i][j-1] != '#':
-                neighbor_node_in = (i+1, j, "in")
+                neighbor_node_in = (i, j-1, "in")
                 flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
 
+    ## THIRD LOOP: add edges between portal spaces
     for pair in portalPairCoords:
         p1, p2 = pair
         p1_x, p1_y = p1
@@ -74,6 +85,8 @@ def encloseHorse(maze, wallCount, portalPairCoords):
 
         flowGraph.add_edge(p1_node_out, p2_node_in, capacity = np.inf)
         flowGraph.add_edge(p2_node_out, p1_node_in, capacity = np.inf)
+    
+    cut_value, (S_nodes, T_nodes) = nx.minimum_cut(flowGraph, S, T)
             
 
 ### OLD SOLUTION BELOW THIS POINT ###
