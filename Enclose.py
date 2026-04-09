@@ -3,7 +3,82 @@ import Helper
 import CreateGraph
 import Validater
 import random
+import numpy as np
 
+def encloseHorse(maze, wallCount, portalPairCoords):
+    # get initial wall locations so we can reconstruct input if algorithm fails
+    initialWalls = []
+    
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            current = maze[i][j]
+            if current == 'W':
+                initialWalls.append((i,j))
+                maze[i][j] = '.'
+    
+    flowGraph = nx.DiGraph()
+    S = "SOURCE"
+    T = "SINK"
+    flowGraph.add_node(S)
+    flowGraph.add_node(T)
+
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            current = maze[i][j]
+            if current != '#':
+                node_in = (i, j, "in")
+                node_out = (i, j, "out")
+                flowGraph.add_node(node_in)
+                flowGraph.add_node(node_out)
+
+                if current == '.':
+                    flowGraph.add_edge(node_in, node_out, capacity = 1)
+                else:
+                    flowGraph.add_edge(node_in, node_out, capacity = np.inf)
+                
+                value = Helper.getValue(current)
+                flowGraph.add_edge(S, node_in, capacity = value)
+                flowGraph.add_edge(node_out, T, capacity = -value)
+
+                if Helper.isOnEdge(i, j, maze):
+                    flowGraph.add_edge(S, node_in, capacity = np.inf)
+                
+                if current == 'H':
+                    flowGraph.add_edge(node_out, T, capacity = np.inf)
+
+    for i in range(len(maze)):
+        for j in range(len(maze[i])):
+            node_out = (i, j, "out")
+            if i > 0 and maze[i-1][j] != '#':
+                neighbor_node_in = (i-1, j, "in")
+                flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
+            if j < len(maze[i]) - 1 and maze[i][j+1] != '#':
+                neighbor_node_in = (i, j+1, "in")
+                flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
+            if i < len(maze) - 1 and maze[i+1][j] != '#':
+                neighbor_node_in = (i+1, j, "in")
+                flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
+            if j > 0 and maze[i][j-1] != '#':
+                neighbor_node_in = (i+1, j, "in")
+                flowGraph.add_edge(node_out, neighbor_node_in, capacity = np.inf)
+
+    for pair in portalPairCoords:
+        p1, p2 = pair
+        p1_x, p1_y = p1
+        p2_x, p2_y = p2
+
+        p1_node_in = (p1_x, p1_y, "in")
+        p1_node_out = (p1_x, p1_y, "out")
+        p2_node_in = (p2_x, p2_y, "in")
+        p2_node_out = (p2_x, p2_y, "out")
+
+        flowGraph.add_edge(p1_node_out, p2_node_in, capacity = np.inf)
+        flowGraph.add_edge(p2_node_out, p1_node_in, capacity = np.inf)
+            
+
+### OLD SOLUTION BELOW THIS POINT ###
+
+'''
 """
 New and better idea, start by using dijkstras to find a minimum viable solution
 Then push out and optimize
@@ -138,10 +213,4 @@ def encloseHorse(maze, wallCount, portalPairCoords):
             for element in path:
                 print(str(element), end=" ")
             exit(1)
-        
-
-
-            
-
-
-    
+'''  
