@@ -33,10 +33,22 @@ def createGraph(wallCount, maze, portalPairCoords):
             if node not in G:
                 G.add_node(node)
 
+
     G.add_node(exitNode)
     G.add_node(startNode)
 
-    #Create all edges between nodes including between portals
+
+    #connect portals
+    for pair in portalPairCoords:
+        portal1, portal2 = pair
+        i,j = portal1
+        portal1Node = ('p', i,j, 1) 
+        x, y = portal2
+        portal2Node = ('p',x,y,1)
+        G.add_edge(portal1Node,portal2Node)
+
+
+    #Create all edges between nodes in North, South, East, West directions
     for i in range(len(maze)):
         for j in range(len(maze[i])):
             mainElement = maze[i][j]
@@ -46,13 +58,7 @@ def createGraph(wallCount, maze, portalPairCoords):
             if(mainElement not in connectable):
                 continue
             
-            #connect portals
-            if(mainElement == 'p'):
-                for pair in portalPairCoords:
-                    portal1, portal2 = pair
-                    x, y = portal2
-                    portalNode = ('p',x,y,1)
-                    G.add_edge(mainNode,portalNode)
+            
 
             #make start node connected to horse
             if(mainElement == 'H'):
