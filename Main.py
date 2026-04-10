@@ -74,6 +74,5 @@ def test():
     else:
         print("Invalid input\nTotal = " + str(total))
 
-
 #test()
 standard()

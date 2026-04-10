@@ -22,3 +22,4 @@ def horseCanEscape(graph):
         if(thing == 'exit'):
             return True
     return False
+
